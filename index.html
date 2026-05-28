@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cribs Command Center — V3 (Real Data)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1F3D2A;
+    --forest-dark: #152A1D;
+    --forest-deep: #0E1F14;
+    --cream: #F5EFE0;
+    --cream-light: #FBF7EC;
+    --cream-soft: #F8F2E4;
+    --gold: #C9A961;
+    --gold-dark: #B8964A;
+    --gold-light: #DCC07F;
+    --ink: #2A2A2A;
+    --muted: #6B6B5A;
+    --white: #FFFFFF;
+    --red: #B5453C;
+    --red-light: #E8D3D1;
+    --yellow: #C28F3C;
+    --yellow-light: #F0E2C4;
+    --green: #5A7A4E;
+    --green-light: #DCE5D4;
+    --tv: #4A6FA5;
+    --tv-light: #D5DFEC;
+    --direct: #8B6F4A;
+    --direct-light: #E6DAC8;
+    --border: rgba(31, 61, 42, 0.12);
+    --shadow-sm: 0 1px 2px rgba(31, 61, 42, 0.06);
+    --shadow-md: 0 4px 12px rgba(31, 61, 42, 0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream-light);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: -0.01em;
+  }
+
+  /* TOP NAV */
+  .topnav {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--forest-dark);
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark {
+    width: 32px; height: 32px;
+    background: var(--gold);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--forest-deep);
+    font-size: 17px;
+  }
+  .brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-left: 8px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(201, 169, 97, 0.3);
+  }
+  .nav-search { flex: 1; max-width: 480px; margin: 0 32px; position: relative; }
+  .nav-search input {
+    width: 100%;
+    background: var(--forest-dark);
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 4px;
+    padding: 9px 14px 9px 36px;
+    color: var(--cream);
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .nav-search input::placeholder { color: rgba(245, 239, 224, 0.45); }
+  .nav-search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--gold-light);
+    pointer-events: none;
+  }
+  .nav-right { display: flex; align-items: center; gap: 22px; }
+  .nav-bell { position: relative; color: var(--gold-light); cursor: pointer; }
+  .nav-bell-dot {
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    background: var(--red);
+    border-radius: 50%;
+    font-size: 9px;
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    border: 2px solid var(--forest);
+  }
+  .nav-user {
+    display: flex; align-items: center; gap: 10px;
+    padding-left: 18px;
+    border-left: 1px solid rgba(201, 169, 97, 0.2);
+  }
+  .nav-avatar {
+    width: 30px; height: 30px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    color: var(--forest-deep);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .nav-user-name { font-size: 13px; font-weight: 500; }
+  .nav-user-role { font-size: 10px; color: var(--gold-light); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* LENS SWITCHER */
+  .lens-switcher {
+    background: var(--forest-dark);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-bottom: 1px solid var(--forest-deep);
+  }
+  .lens-tab {
+    padding: 14px 22px;
+    color: rgba(245, 239, 224, 0.55);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lens-tab:hover { color: var(--cream); }
+  .lens-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .lens-tab-num { font-family: 'Fraunces', serif; font-size: 14px; opacity: 0.7; }
+
+  /* MAIN CONTAINER */
+  .container { padding: 28px 32px 80px; max-width: 1680px; margin: 0 auto; }
+  .lens { display: none; animation: fadeIn 0.25s ease-out; }
+  .lens.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* PAGE HEADER */
+  .page-head { margin-bottom: 22px; }
+  .page-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .page-eyebrow-line { width: 28px; height: 2px; background: var(--gold); }
+  .page-eyebrow-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+  .page-title { font-size: 30px; line-height: 1.15; color: var(--forest); }
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* QUARTERLY GOALS STRIP */
+  .q-goals {
+    background: var(--forest);
+    border-radius: 6px;
+    padding: 16px 22px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .q-title { color: var(--cream); font-family: 'Fraunces', serif; }
+  .q-title-eyebrow {
+    font-size: 9.5px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px; font-weight: 600; font-family: 'Inter', sans-serif;
+  }
+  .q-title-text { font-size: 18px; font-weight: 600; line-height: 1; }
+  .q-goal { border-left: 1px solid rgba(201, 169, 97, 0.25); padding-left: 20px; }
+  .q-goal-label {
+    font-size: 9.5px; color: var(--gold-light); letter-spacing: 1.2px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .q-goal-val {
+    font-family: 'Fraunces', serif; font-size: 19px; color: var(--cream);
+    font-weight: 600; line-height: 1; margin-bottom: 4px;
+  }
+  .q-goal-target { font-size: 10px; color: var(--gold-light); }
+  .q-goal-status {
+    display: inline-block; padding: 1px 7px; border-radius: 8px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; margin-top: 5px;
+  }
+  .q-goal-status.green { background: rgba(168, 201, 158, 0.2); color: #A8C99E; }
+  .q-goal-status.yellow { background: rgba(229, 199, 122, 0.2); color: #E5C77A; }
+  .q-goal-status.red { background: rgba(232, 156, 140, 0.2); color: #E89C8C; }
+
+  /* SMART DAY PLANNER */
+  .day-planner {
+    background: linear-gradient(180deg, var(--cream-soft) 0%, var(--white) 100%);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .day-planner-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .day-planner-title {
+    font-family: 'Fraunces', serif; font-size: 16px; color: var(--forest);
+    font-weight: 600; display: flex; align-items: center; gap: 8px;
+  }
+  .day-planner-title::before {
+    content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%;
+  }
+  .day-planner-meta {
+    font-size: 10.5px; color: var(--gold-dark); font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase;
+  }
+  .day-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .day-item {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 10px 12px; border-left: 3px solid var(--gold);
+  }
+  .day-item-time {
+    font-size: 9.5px; color: var(--gold-dark); font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .day-item-text { font-size: 12px; line-height: 1.4; color: var(--ink); }
+  .day-item-text b { color: var(--forest); }
+
+  /* KPI STRIP */
+  .kpi-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 10px; margin-bottom: 22px;
+  }
+  .kpi {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .kpi-label {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .kpi-value {
+    font-family: 'Fraunces', serif; font-size: 24px;
+    font-weight: 600; color: var(--forest); line-height: 1;
+  }
+  .kpi-value .unit { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 3px; }
+  .kpi-delta { font-size: 10.5px; margin-top: 7px; font-weight: 500; }
+  .kpi-delta.good { color: var(--green); }
+  .kpi-delta.bad { color: var(--red); }
+  .kpi-delta.neutral { color: var(--muted); }
+  .kpi.featured { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+  .kpi.featured .kpi-label { color: var(--gold-light); }
+  .kpi.featured .kpi-value { color: var(--gold); }
+
+  /* TWO COL LAYOUT */
+  .two-col { display: grid; grid-template-columns: 320px 1fr; gap: 22px; }
+
+  /* AI PANEL */
+  .ai-panel {
+    background: var(--forest); color: var(--cream); border-radius: 6px;
+    padding: 20px; position: sticky; top: 20px; align-self: start;
+  }
+  .ai-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .ai-dot {
+    width: 8px; height: 8px; background: var(--gold); border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.18);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.18); }
+    50% { box-shadow: 0 0 0 6px rgba(201, 169, 97, 0.08); }
+  }
+  .ai-title { font-family: 'Fraunces', serif; font-size: 17px; color: var(--cream); font-weight: 600; }
+  .ai-subtitle {
+    font-size: 11px; color: var(--gold-light); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .ai-item {
+    padding: 12px 13px; background: var(--forest-dark);
+    border-left: 2px solid var(--gold); border-radius: 3px;
+    margin-bottom: 9px; cursor: pointer; transition: transform 0.15s;
+  }
+  .ai-item:hover { transform: translateX(3px); }
+  .ai-item-priority {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+  }
+  .ai-item-priority.urgent { color: #F2A28C; }
+  .ai-item-priority.insight { color: #8FBFA8; }
+  .ai-item-text { font-size: 12px; line-height: 1.45; color: var(--cream); margin-bottom: 8px; }
+  .ai-item-text b { color: var(--white); font-weight: 600; }
+  .ai-action {
+    background: transparent; border: 1px solid var(--gold); color: var(--gold);
+    padding: 4px 9px; border-radius: 3px; font-size: 9.5px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; font-family: inherit; transition: all 0.15s;
+  }
+  .ai-action:hover { background: var(--gold); color: var(--forest-deep); }
+  .roi-bar { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(201, 169, 97, 0.2); }
+  .roi-label {
+    font-size: 10px; color: var(--gold-light); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .roi-stat { margin-bottom: 12px; }
+  .roi-stat-value {
+    font-family: 'Fraunces', serif; font-size: 22px; color: var(--gold);
+    font-weight: 600; line-height: 1;
+  }
+  .roi-stat-text { font-size: 11px; color: var(--cream); margin-top: 3px; line-height: 1.4; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .filter-label {
+    font-size: 10.5px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1.5px; font-weight: 600; margin-right: 4px;
+  }
+  .filter-chip {
+    padding: 5px 11px; background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; font-size: 11.5px; color: var(--ink);
+    cursor: pointer; transition: all 0.15s; font-weight: 500;
+  }
+  .filter-chip:hover { border-color: var(--gold); }
+  .filter-chip.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+
+  /* PROJECT GRID */
+  .grid-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; margin-top: 4px;
+  }
+  .grid-head h3 { font-size: 17px; font-weight: 600; }
+  .grid-head-meta { font-size: 12px; color: var(--muted); }
+  .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .project-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px; cursor: pointer;
+    transition: all 0.15s; position: relative;
+  }
+  .project-card:hover {
+    border-color: var(--gold); box-shadow: var(--shadow-md); transform: translateY(-1px);
+  }
+  .project-card-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 8px; gap: 8px;
+  }
+  .project-name-block { flex: 1; }
+  .project-name {
+    font-family: 'Fraunces', serif; font-size: 15px;
+    color: var(--forest); font-weight: 600; line-height: 1.2;
+  }
+  .project-market {
+    font-size: 10.5px; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 3px;
+  }
+  .project-tags {
+    display: flex; gap: 4px; align-items: center;
+    flex-wrap: wrap; flex-shrink: 0;
+  }
+  .pipeline-tag {
+    padding: 2px 7px; border-radius: 8px; font-size: 9px;
+    font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .pipeline-tag.tv { background: var(--tv-light); color: var(--tv); }
+  .pipeline-tag.direct { background: var(--direct-light); color: var(--direct); }
+  .status-pill {
+    padding: 3px 8px; border-radius: 10px; font-size: 9.5px;
+    font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .status-pill.green { background: var(--green-light); color: var(--green); }
+  .status-pill.yellow { background: var(--yellow-light); color: var(--yellow); }
+  .status-pill.red { background: var(--red-light); color: var(--red); }
+
+  .dual-jobs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px; margin: 10px 0;
+  }
+  .dual-job {
+    background: var(--cream-soft); border-radius: 3px;
+    padding: 7px 9px; border-left: 2px solid var(--gold);
+  }
+  .dual-job-label {
+    font-size: 8.5px; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 2px;
+  }
+  .dual-job-margin { font-size: 12.5px; font-weight: 700; color: var(--forest); }
+  .dual-job-margin.green { color: var(--green); }
+  .dual-job-margin.yellow { color: var(--yellow); }
+  .dual-job-margin.red { color: var(--red); }
+
+  .project-meta {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; padding: 8px 0;
+    border-top: 1px solid var(--border); margin-top: 4px;
+  }
+  .meta-cell-label {
+    font-size: 8.5px; color: var(--muted); letter-spacing: 1.2px;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 2px;
+  }
+  .meta-cell-value { font-size: 11.5px; color: var(--forest); font-weight: 600; }
+  .meta-cell-value.green { color: var(--green); }
+  .meta-cell-value.yellow { color: var(--yellow); }
+  .meta-cell-value.red { color: var(--red); }
+
+  .project-card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; margin-top: 6px;
+  }
+  .project-pm { display: flex; align-items: center; gap: 6px; color: var(--ink); }
+  .pm-avatar {
+    width: 20px; height: 20px; background: var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 9.5px; color: var(--forest-deep); font-weight: 700;
+    font-family: 'Fraunces', serif;
+  }
+  .project-next { color: var(--muted); font-size: 10.5px; }
+  .project-next b { color: var(--forest); font-weight: 600; }
+
+  /* PM VIEW */
+  .pm-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 28px;
+  }
+  .pm-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 18px 16px; cursor: pointer; transition: all 0.15s;
+  }
+  .pm-card:hover { border-color: var(--gold); box-shadow: var(--shadow-md); }
+  .pm-card.selected { border-color: var(--forest); background: var(--cream-soft); }
+  .pm-card.overloaded { border-color: var(--red); border-width: 2px; }
+  .pm-card.underloaded { border-color: var(--yellow); border-width: 2px; }
+  .pm-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .pm-big-avatar {
+    width: 42px; height: 42px; background: var(--forest); color: var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700;
+  }
+  .pm-name {
+    font-family: 'Fraunces', serif; font-size: 16px;
+    color: var(--forest); font-weight: 600; line-height: 1.1;
+  }
+  .pm-role {
+    font-size: 10.5px; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 3px;
+  }
+  .pm-workload { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; }
+  .pm-workload-num {
+    font-family: 'Fraunces', serif; font-size: 26px;
+    font-weight: 700; line-height: 1;
+  }
+  .pm-workload-num.over { color: var(--red); }
+  .pm-workload-num.under { color: var(--yellow); }
+  .pm-workload-num.ok { color: var(--forest); }
+  .pm-workload-label { font-size: 11px; color: var(--muted); }
+  .pm-stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    padding-top: 10px; border-top: 1px solid var(--border);
+  }
+  .pm-stat-label {
+    font-size: 9.5px; color: var(--muted); letter-spacing: 1.2px;
+    text-transform: uppercase; margin-bottom: 3px;
+  }
+  .pm-stat-value {
+    font-family: 'Fraunces', serif; font-size: 16px;
+    color: var(--forest); font-weight: 600; line-height: 1;
+  }
+  .pm-stat-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+  .pm-stat-sub.green { color: var(--green); font-weight: 600; }
+  .pm-stat-sub.red { color: var(--red); font-weight: 600; }
+  .pm-stat-sub.yellow { color: var(--yellow); font-weight: 600; }
+  .pm-flag {
+    background: var(--red); color: var(--white); padding: 4px 8px;
+    border-radius: 3px; font-size: 9px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-top: 10px; text-align: center;
+  }
+  .pm-flag.yellow { background: var(--yellow); }
+
+  .pm-detail-section {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 22px;
+  }
+  .pm-detail-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .pm-detail-title h3 { font-size: 22px; color: var(--forest); }
+  .pm-detail-title .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .pm-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 7px 13px; border: 1px solid var(--forest);
+    background: var(--white); color: var(--forest); border-radius: 4px;
+    font-size: 11.5px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: all 0.15s;
+  }
+  .btn:hover { background: var(--forest); color: var(--cream); }
+  .btn.primary { background: var(--forest); color: var(--cream); }
+  .pm-1on1-prep {
+    background: var(--cream-soft); border-left: 3px solid var(--gold);
+    padding: 14px 16px; border-radius: 3px; margin-bottom: 20px;
+  }
+  .pm-1on1-prep-head {
+    font-size: 9.5px; color: var(--gold-dark); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 8px;
+  }
+  .pm-1on1-prep-list {
+    list-style: none; font-size: 13px; color: var(--ink); line-height: 1.6;
+  }
+  .pm-1on1-prep-list li { padding-left: 16px; position: relative; margin-bottom: 4px; }
+  .pm-1on1-prep-list li::before {
+    content: '•'; position: absolute; left: 4px;
+    color: var(--gold-dark); font-weight: 700;
+  }
+  .pm-1on1-prep-list b { color: var(--forest); font-weight: 600; }
+
+  /* PORTFOLIO MARGIN VIEW (NEW 4TH LENS) */
+  .portfolio-headline {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 22px; margin-bottom: 16px;
+  }
+  .ph-grid {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 24px;
+    align-items: center;
+  }
+  .ph-text { }
+  .ph-eyebrow {
+    font-size: 11px; color: var(--gold-dark); letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 6px;
+  }
+  .ph-title { font-size: 26px; color: var(--forest); margin-bottom: 8px; }
+  .ph-sub { font-size: 14px; color: var(--ink); line-height: 1.5; }
+  .ph-sub b { color: var(--red); }
+  .ph-bignum {
+    text-align: right;
+  }
+  .ph-bignum-val {
+    font-family: 'Fraunces', serif; font-size: 56px;
+    color: var(--red); font-weight: 700; line-height: 1;
+  }
+  .ph-bignum-label {
+    font-size: 11px; color: var(--muted); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 600; margin-top: 6px;
+  }
+
+  .margin-breakdown {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px; margin-bottom: 22px;
+  }
+  .mb-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 20px;
+  }
+  .mb-card.alarm { border-color: var(--red); border-width: 2px; }
+  .mb-card.healthy { border-color: var(--green); border-width: 2px; }
+  .mb-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+  .mb-title {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    color: var(--forest); font-weight: 600;
+  }
+  .mb-status {
+    font-size: 10px; padding: 3px 8px; border-radius: 8px;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .mb-status.healthy { background: var(--green-light); color: var(--green); }
+  .mb-status.alarm { background: var(--red-light); color: var(--red); }
+  .mb-status.warn { background: var(--yellow-light); color: var(--yellow); }
+  .mb-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 7px;
+  }
+  .mb-row-label { font-size: 12px; color: var(--muted); }
+  .mb-row-val {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    color: var(--forest); font-weight: 600;
+  }
+  .mb-row-val.red { color: var(--red); }
+  .mb-row-val.green { color: var(--green); }
+  .mb-gap {
+    margin-top: 10px; padding: 10px 12px;
+    background: var(--cream-soft); border-radius: 3px;
+    font-size: 12px; color: var(--ink);
+  }
+  .mb-gap b { color: var(--forest); }
+  .mb-gap.bad { background: var(--red-light); color: var(--red); }
+  .mb-gap.good { background: var(--green-light); color: var(--green); }
+
+  .ranked-list {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 22px;
+  }
+  .ranked-head { margin-bottom: 14px; display: flex; align-items: baseline; justify-content: space-between; }
+  .ranked-title { font-family: 'Fraunces', serif; font-size: 18px; color: var(--forest); font-weight: 600; }
+  .ranked-meta { font-size: 11px; color: var(--muted); }
+  .rank-table {
+    width: 100%; border-collapse: collapse;
+  }
+  .rank-table th {
+    text-align: left; font-size: 10px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1.2px;
+    text-transform: uppercase; padding: 10px 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .rank-table th.num { text-align: right; }
+  .rank-table td {
+    padding: 10px 8px; font-size: 12.5px;
+    color: var(--ink); border-bottom: 1px solid var(--border);
+  }
+  .rank-table td.num { text-align: right; font-family: 'Fraunces', serif; font-weight: 600; }
+  .rank-table td.green { color: var(--green); }
+  .rank-table td.red { color: var(--red); }
+  .rank-table td.yellow { color: var(--yellow); }
+  .rank-table td .proj-name { font-family: 'Fraunces', serif; font-weight: 600; color: var(--forest); }
+  .rank-table tr:hover { background: var(--cream-soft); cursor: pointer; }
+  .rank-table tr.winner { background: rgba(220, 229, 212, 0.3); }
+  .rank-table tr.loser { background: rgba(232, 211, 209, 0.3); }
+  .rank-num {
+    font-family: 'Fraunces', serif; color: var(--gold-dark);
+    font-weight: 700; font-size: 13px;
+  }
+
+  /* PROJECT VIEW */
+  .project-view-back {
+    background: none; border: none; color: var(--gold-dark);
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; cursor: pointer; padding: 0;
+    margin-bottom: 14px; font-family: inherit;
+  }
+  .project-view-back:hover { color: var(--forest); }
+  .project-view-head {
+    background: var(--forest); color: var(--cream);
+    border-radius: 6px; padding: 24px 28px; margin-bottom: 18px;
+  }
+  .pv-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .pv-eyebrow {
+    font-size: 10px; color: var(--gold); letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 700;
+    margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+  }
+  .pv-title {
+    font-family: 'Fraunces', serif; font-size: 26px;
+    color: var(--white); font-weight: 600; line-height: 1.1;
+  }
+  .pv-meta { font-size: 13px; color: var(--gold-light); margin-top: 6px; }
+  .pv-actions { display: flex; gap: 8px; }
+  .pv-btn {
+    background: transparent; border: 1px solid var(--gold); color: var(--gold);
+    padding: 7px 12px; border-radius: 4px; font-size: 10.5px;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; font-family: inherit;
+  }
+  .pv-btn:hover { background: var(--gold); color: var(--forest-deep); }
+  .pv-btn.primary { background: var(--gold); color: var(--forest-deep); }
+
+  .pv-jobs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 4px;
+  }
+  .pv-job {
+    background: var(--forest-dark); border-radius: 5px; padding: 16px 18px;
+  }
+  .pv-job-head {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 10px;
+  }
+  .pv-job-title { font-family: 'Fraunces', serif; font-size: 15px; color: var(--gold); font-weight: 600; }
+  .pv-job-stage {
+    font-size: 9.5px; color: var(--gold-light); letter-spacing: 1.2px;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .pv-job-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .pv-job-stat-label {
+    font-size: 9px; color: var(--gold-light); letter-spacing: 1.2px;
+    text-transform: uppercase; margin-bottom: 3px;
+  }
+  .pv-job-stat-value {
+    font-family: 'Fraunces', serif; font-size: 15px;
+    color: var(--cream); font-weight: 600;
+  }
+  .pv-job-stat-value.green { color: #A8C99E; }
+  .pv-job-stat-value.yellow { color: #E5C77A; }
+  .pv-job-stat-value.red { color: #E89C8C; }
+
+  .pv-body {
+    display: grid; grid-template-columns: 1fr 350px; gap: 18px;
+  }
+  .pv-main {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 20px;
+  }
+  .pv-section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .pv-section-title {
+    font-family: 'Fraunces', serif; font-size: 16px;
+    color: var(--forest); font-weight: 600;
+  }
+  .pv-tabs { display: flex; gap: 4px; font-size: 11px; }
+  .pv-tab {
+    padding: 4px 9px; border: 1px solid var(--border);
+    border-radius: 12px; color: var(--muted);
+    cursor: pointer; font-weight: 500;
+  }
+  .pv-tab.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+
+  /* CLIENT CONTEXT CARD - NEW */
+  .client-context {
+    background: var(--cream-soft); border-left: 3px solid var(--gold);
+    border-radius: 4px; padding: 16px 18px; margin-bottom: 18px;
+  }
+  .cc-head {
+    font-size: 9.5px; color: var(--gold-dark); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
+  }
+  .cc-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .cc-item { }
+  .cc-label {
+    font-size: 9.5px; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 3px;
+  }
+  .cc-val { font-size: 12.5px; color: var(--ink); line-height: 1.45; }
+  .cc-val b { color: var(--forest); font-weight: 600; }
+  .cc-trigger {
+    background: var(--white); border: 1px solid var(--gold);
+    padding: 10px 12px; border-radius: 3px; margin-top: 10px;
+  }
+  .cc-trigger-label {
+    font-size: 9.5px; color: var(--gold-dark); letter-spacing: 1.2px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 4px;
+  }
+  .cc-trigger-text { font-size: 12.5px; color: var(--ink); line-height: 1.5; font-style: italic; }
+
+  .comm-item {
+    display: grid; grid-template-columns: 50px 1fr;
+    gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .comm-item:last-child { border-bottom: none; }
+  .comm-time {
+    font-size: 10px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.5px; text-align: right;
+  }
+  .comm-meta {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 4px; font-size: 11px;
+  }
+  .comm-source {
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    font-weight: 700; padding: 2px 6px; border-radius: 2px;
+  }
+  .comm-source.slack { background: #4A154B; color: var(--white); }
+  .comm-source.email { background: var(--forest); color: var(--cream); }
+  .comm-source.bt { background: #1E4D7B; color: var(--white); }
+  .comm-source.qb { background: #2CA01C; color: var(--white); }
+  .comm-source.fathom { background: var(--gold); color: var(--forest-deep); }
+  .comm-source.internal { background: var(--cream-soft); color: var(--ink); border: 1px solid var(--border); }
+  .comm-from { font-weight: 600; color: var(--forest); }
+  .comm-text { font-size: 12.5px; line-height: 1.5; color: var(--ink); }
+
+  .pv-side { display: flex; flex-direction: column; gap: 14px; }
+  .side-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px;
+  }
+  .side-card-head {
+    font-family: 'Fraunces', serif; font-size: 14px;
+    color: var(--forest); font-weight: 600;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sub-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 0; font-size: 11.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sub-row:last-child { border-bottom: none; }
+  .sub-name { color: var(--ink); font-weight: 500; }
+  .sub-status {
+    font-size: 9px; padding: 2px 7px; border-radius: 8px;
+    font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .sub-status.received { background: var(--green-light); color: var(--green); }
+  .sub-status.pending { background: var(--yellow-light); color: var(--yellow); }
+  .sub-status.incomplete { background: var(--red-light); color: var(--red); }
+
+  .insight-card {
+    background: var(--cream-soft); border-radius: 4px;
+    padding: 10px 12px; margin-top: 8px;
+  }
+  .insight-card-head {
+    font-size: 9.5px; color: var(--gold-dark); font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px;
+  }
+  .insight-card-text { font-size: 11.5px; color: var(--ink); line-height: 1.45; }
+  .insight-card-text b { color: var(--forest); }
+
+  /* Margin Calculator panel */
+  .margin-calc-panel {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 18px; margin-bottom: 18px;
+  }
+  .mcp-head {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    color: var(--forest); font-weight: 600; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .mcp-link {
+    font-size: 11px; color: var(--gold-dark);
+    font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .mcp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .mcp-cell {
+    background: var(--cream-soft); padding: 12px 14px;
+    border-radius: 4px; border-left: 3px solid var(--gold);
+  }
+  .mcp-cell-label {
+    font-size: 9.5px; color: var(--muted); letter-spacing: 1.2px;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 4px;
+  }
+  .mcp-cell-val {
+    font-family: 'Fraunces', serif; font-size: 18px;
+    color: var(--forest); font-weight: 600;
+  }
+  .mcp-cell-val.red { color: var(--red); }
+  .mcp-cell-val.yellow { color: var(--yellow); }
+  .mcp-cell-val.green { color: var(--green); }
+  .mcp-cell-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  .mockup-banner {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--forest-deep); text-align: center;
+    padding: 8px 32px; font-size: 11.5px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+  }
+  .demo-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(31, 61, 42, 0.15);
+    padding: 3px 10px 3px 6px; border-radius: 12px;
+    cursor: pointer; font-size: 10.5px;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    border: 1px solid rgba(31, 61, 42, 0.2);
+    transition: all 0.15s;
+  }
+  .demo-toggle:hover { background: rgba(31, 61, 42, 0.25); }
+  .demo-toggle-dot {
+    width: 8px; height: 8px;
+    background: #B85C5C;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(184, 92, 92, 0.25);
+  }
+  .demo-toggle-label { font-weight: 600; }
+  .demo-toggle-state { font-weight: 700; }
+
+  /* Demo data marker — shows for fabricated content */
+  .demo-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(184, 92, 92, 0.12);
+    color: #8E3838;
+    padding: 1px 6px 1px 5px;
+    border-radius: 8px;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 6px;
+    border: 1px solid rgba(184, 92, 92, 0.25);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .demo-flag::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: #B85C5C;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  /* When demo mode is OFF, hide all demo flags */
+  body.demo-off .demo-flag { display: none; }
+  /* Subtle highlight on entire demo elements when toggle is ON */
+  body.demo-on .demo-block {
+    background: rgba(184, 92, 92, 0.04);
+    border-left: 2px solid rgba(184, 92, 92, 0.35) !important;
+  }
+  body.demo-on .demo-row {
+    background: rgba(184, 92, 92, 0.04);
+  }
+  /* Demo banner section header */
+  .demo-section-banner {
+    display: none;
+    background: rgba(184, 92, 92, 0.08);
+    color: #8E3838;
+    padding: 6px 12px;
+    border-radius: 3px;
+    border-left: 3px solid #B85C5C;
+    font-size: 10.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  body.demo-on .demo-section-banner { display: block; }
+
+  /* ====== MARK'S DECISION QUEUE ====== */
+  .decision-queue {
+    background: var(--white);
+    border: 2px solid var(--forest);
+    border-radius: 6px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .dq-head {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dq-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .dq-icon {
+    width: 26px; height: 26px;
+    background: var(--gold);
+    color: var(--forest-deep);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .dq-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .dq-subtitle {
+    font-size: 10.5px;
+    color: var(--gold-light);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+  .dq-count {
+    background: var(--gold);
+    color: var(--forest-deep);
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .dq-body { padding: 4px 0; }
+
+  .dq-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .dq-item:hover { background: var(--cream-soft); }
+  .dq-item:last-child { border-bottom: none; }
+
+  .dq-priority {
+    width: 50px;
+    text-align: center;
+  }
+  .dq-priority-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  .dq-priority-badge.urgent { background: var(--red); color: var(--white); }
+  .dq-priority-badge.high { background: var(--yellow); color: var(--white); }
+  .dq-priority-badge.med { background: var(--forest); color: var(--cream); }
+  .dq-priority-badge.low { background: var(--cream-soft); color: var(--muted); border: 1px solid var(--border); }
+
+  .dq-content { }
+  .dq-content-title {
+    font-size: 14px;
+    color: var(--forest);
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .dq-content-context {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .dq-content-context b { color: var(--ink); }
+  .dq-source-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .dq-source-tag.slack { background: #4A154B; color: var(--white); }
+  .dq-source-tag.bt { background: #1E4D7B; color: var(--white); }
+  .dq-source-tag.email { background: var(--forest); color: var(--cream); }
+  .dq-source-tag.calc { background: var(--gold); color: var(--forest-deep); }
+  .dq-source-tag.pattern { background: var(--cream-soft); color: var(--ink); border: 1px solid var(--gold); }
+
+  .dq-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .dq-btn {
+    background: transparent;
+    border: 1px solid var(--forest);
+    color: var(--forest);
+    padding: 5px 11px;
+    border-radius: 3px;
+    font-size: 10.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .dq-btn:hover { background: var(--forest); color: var(--cream); }
+  .dq-btn.primary { background: var(--forest); color: var(--cream); }
+  .dq-btn.primary:hover { background: var(--forest-dark); }
+  .dq-btn.gold { border-color: var(--gold-dark); color: var(--gold-dark); }
+  .dq-btn.gold:hover { background: var(--gold); color: var(--forest-deep); border-color: var(--gold); }
+
+  .dq-impact {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .dq-impact b { color: var(--red); font-style: normal; }
+  .dq-impact.good b { color: var(--green); }
+
+  /* ====== SLACK INTEL CARD ====== */
+  .slack-intel {
+    background: linear-gradient(135deg, #4A154B 0%, #3A1140 100%);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+  }
+  .si-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .si-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .si-icon {
+    width: 28px; height: 28px;
+    background: var(--white);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A154B;
+  }
+  .si-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .si-subtitle {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+  .si-stat {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .si-stat b {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .si-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .si-section { }
+  .si-section-head {
+    font-size: 10px;
+    color: #DCC07F;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .si-section-body {
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .si-section-body b { color: var(--white); font-weight: 600; }
+  .si-people {
+    margin-top: 8px;
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .si-people b { color: rgba(255, 255, 255, 0.85); font-weight: 500; }
+  .si-decision {
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 2px solid var(--gold);
+    padding: 8px 10px;
+    margin-top: 8px;
+    border-radius: 2px;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  .si-decision-label {
+    font-size: 8.5px;
+    color: #DCC07F;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  @media (max-width: 1300px) {
+    .two-col { grid-template-columns: 1fr; }
+    .ai-panel { position: static; }
+    .pv-body { grid-template-columns: 1fr; }
+    .pm-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .q-goals { grid-template-columns: 1fr 1fr 1fr; }
+    .day-list { grid-template-columns: 1fr 1fr; }
+    .ph-grid { grid-template-columns: 1fr; }
+    .margin-breakdown { grid-template-columns: 1fr; }
+    .mcp-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body class="demo-on">
+
+<div class="mockup-banner">
+  <span>Vision Mockup V4 · Built on Real Margin Data · For Mark & Josh Kickoff</span>
+  <span class="demo-toggle" id="demoToggle">
+    <span class="demo-toggle-dot"></span>
+    <span class="demo-toggle-label">Demo flags:</span>
+    <span class="demo-toggle-state" id="demoState">ON</span>
+  </span>
+</div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="brand">
+    <div class="brand-mark">C</div>
+    <div>
+      <div class="brand-name">Cribs Command Center<span class="brand-sub">By Altri</span></div>
+    </div>
+  </div>
+  <div class="nav-search">
+    <svg class="nav-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" placeholder="Search properties, clients, PMs, subs...">
+  </div>
+  <div class="nav-right">
+    <div class="nav-bell">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      <span class="nav-bell-dot">9</span>
+    </div>
+    <div class="nav-user">
+      <div class="nav-avatar">MF</div>
+      <div>
+        <div class="nav-user-name">Mark Fordham</div>
+        <div class="nav-user-role">Head of Ops</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- LENS SWITCHER (NOW WITH 4 LENSES) -->
+<div class="lens-switcher">
+  <div class="lens-tab active" data-lens="command">
+    <span class="lens-tab-num">01</span> Command Center
+  </div>
+  <div class="lens-tab" data-lens="portfolio">
+    <span class="lens-tab-num">02</span> Portfolio Margin
+  </div>
+  <div class="lens-tab" data-lens="pm">
+    <span class="lens-tab-num">03</span> Project Manager Lens
+  </div>
+  <div class="lens-tab" data-lens="project">
+    <span class="lens-tab-num">04</span> Project Lens
+  </div>
+</div>
+
+<!-- ============ LENS 1 — COMMAND CENTER ============ -->
+<div class="lens active" id="lens-command">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Wednesday · May 27, 2026 · 8:14 AM</div>
+    </div>
+    <h1 class="page-title">Good morning, Mark.</h1>
+    <div class="page-subtitle">88 active properties · $4.5M analyzed across 20 projects with margin data · <span style="background:rgba(184,92,92,0.05); padding:1px 4px; border-radius:2px;">9 need attention today <span class="demo-flag">demo</span></span>.</div>
+  </div>
+
+  <!-- Quarterly Goals -->
+  <div class="q-goals">
+    <div class="q-title">
+      <div class="q-title-eyebrow">Q2 2026 · Day 58 of 91 <span class="demo-flag">demo</span></div>
+      <div class="q-title-text">Quarterly Scorecard</div>
+    </div>
+    <div class="q-goal demo-block">
+      <div class="q-goal-label">GMV / Q <span class="demo-flag">demo</span></div>
+      <div class="q-goal-val">$3.2M</div>
+      <div class="q-goal-target">Target $4M+ · Aim $5M+</div>
+      <div class="q-goal-status yellow">Pacing 80%</div>
+    </div>
+    <div class="q-goal demo-block">
+      <div class="q-goal-label">Profit / Q <span class="demo-flag">demo</span></div>
+      <div class="q-goal-val">$680K</div>
+      <div class="q-goal-target">Target $600K+ · Aim $1.2M</div>
+      <div class="q-goal-status green">On Target</div>
+    </div>
+    <div class="q-goal">
+      <div class="q-goal-label">Blended Margin</div>
+      <div class="q-goal-val">21.04%</div>
+      <div class="q-goal-target">Aim 25%+</div>
+      <div class="q-goal-status red">4pp Gap</div>
+    </div>
+    <div class="q-goal demo-block">
+      <div class="q-goal-label">Burn / Q <span class="demo-flag">demo</span></div>
+      <div class="q-goal-val">$340K</div>
+      <div class="q-goal-target">Aim under $425K</div>
+      <div class="q-goal-status green">Under Cap</div>
+    </div>
+    <div class="q-goal demo-block">
+      <div class="q-goal-label">$ per $ of Profit <span class="demo-flag">demo</span></div>
+      <div class="q-goal-val">$1.21</div>
+      <div class="q-goal-target">Aim $1.35</div>
+      <div class="q-goal-status yellow">Below Target</div>
+    </div>
+  </div>
+
+  <!-- Smart Day Planner -->
+  <div class="day-planner demo-block">
+    <div class="day-planner-head">
+      <div class="day-planner-title">Your day, prioritized by impact <span class="demo-flag">demo</span></div>
+      <div class="day-planner-meta">4 high-leverage actions</div>
+    </div>
+    <div class="day-list">
+      <div class="day-item">
+        <div class="day-item-time">9 AM Standup</div>
+        <div class="day-item-text">Open with <b>portfolio design margin gap</b> — 18 of 20 projects below 23% target</div>
+      </div>
+      <div class="day-item">
+        <div class="day-item-time">By 11 AM</div>
+        <div class="day-item-text">Diagnose <b>110 Old Ridge Rd</b> — only 13.6% blended, worst in portfolio</div>
+      </div>
+      <div class="day-item">
+        <div class="day-item-time">3 PM 1-on-1</div>
+        <div class="day-item-text"><b>Allie</b> at 1 active project — onboarding ready for 2-3 more</div>
+      </div>
+      <div class="day-item">
+        <div class="day-item-time">EOD</div>
+        <div class="day-item-text">Study <b>366 Hyland Dr</b> — only project hitting 25% — extract pattern for team</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI Strip -->
+  <div class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-label">Active Properties</div>
+      <div class="kpi-value">88</div>
+      <div class="kpi-delta neutral">+4 this week <span class="demo-flag">demo</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Job Value Analyzed</div>
+      <div class="kpi-value">$4.5<span class="unit">M</span></div>
+      <div class="kpi-delta neutral">20 of 88 projects</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Blended Margin</div>
+      <div class="kpi-value" style="color:var(--red);">21.0<span class="unit">%</span></div>
+      <div class="kpi-delta bad">4pp below 25% target</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Construction</div>
+      <div class="kpi-value" style="color:var(--green);">30.3<span class="unit">%</span></div>
+      <div class="kpi-delta good">Beating 27% target</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Design Margin</div>
+      <div class="kpi-value" style="color:var(--red);">14.8<span class="unit">%</span></div>
+      <div class="kpi-delta bad">8pp gap vs 23% aim</div>
+    </div>
+    <div class="kpi featured">
+      <div class="kpi-label">Recoverable Margin</div>
+      <div class="kpi-value">$622<span class="unit">K</span></div>
+      <div class="kpi-delta" style="color:#A8C99E;">If we close design gap</div>
+    </div>
+  </div>
+
+  <!-- MARK'S DECISION QUEUE -->
+  <div class="decision-queue">
+    <div class="dq-head">
+      <div class="dq-head-left">
+        <div class="dq-icon">!</div>
+        <div>
+          <div class="dq-title">Your Decision Queue</div>
+        </div>
+        <div class="dq-subtitle">Air Traffic Control · What needs Mark today</div>
+      </div>
+      <div class="dq-count">7 pending</div>
+    </div>
+    <div class="dq-body">
+
+      <!-- Decision 1: Permit crisis (from Slack pattern) -->
+      <div class="dq-item demo-block">
+        <div class="dq-priority"><div class="dq-priority-badge urgent">Urgent</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag slack">Slack</span>
+            1431 Waterfront Dr — STR permit application cancelled (90-day allowance exceeded)
+          </div>
+          <div class="dq-content-context">
+            <b>Robin</b> reported in #waterfront-dr-1431 · Surfaced from 2,000+ messages · No follow-up logged in 14 days <span class="demo-flag">demo</span>
+          </div>
+          <div class="dq-impact">Township compliance at risk · <b>Launch delay possible</b></div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn">Open Thread</button>
+          <button class="dq-btn primary">Escalate Now</button>
+        </div>
+      </div>
+
+      <!-- Decision 2: Disputed invoice (from Slack pattern) -->
+      <div class="dq-item demo-block">
+        <div class="dq-priority"><div class="dq-priority-badge urgent">Urgent</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag slack">Slack</span>
+            <span class="dq-source-tag bt">Buildertrend</span>
+            $1,250 disputed invoice on 1431 Waterfront — bathroom fixtures already replaced?
+          </div>
+          <div class="dq-content-context">
+            <b>Austin</b> flagged in Slack · Invoice still active in Buildertrend · Decision needed before Friday payment run <span class="demo-flag">demo</span>
+          </div>
+          <div class="dq-impact">Potential <b>$1,250 margin recovery</b> if dispute valid</div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn">Review Invoice</button>
+          <button class="dq-btn primary">Approve / Reject</button>
+        </div>
+      </div>
+
+      <!-- Decision 3: Design margin pattern (REAL from margin data) -->
+      <div class="dq-item">
+        <div class="dq-priority"><div class="dq-priority-badge high">High</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag pattern">Pattern</span>
+            <span class="dq-source-tag calc">Margin Calc</span>
+            Design margin crisis — schedule team-wide pricing review with Olivia & SHL
+          </div>
+          <div class="dq-content-context">
+            <b>18 of 20 projects below 23% design target</b> · Mean is 14.8% · Single biggest margin lever in portfolio
+          </div>
+          <div class="dq-impact good">Potential <b>$622K annual margin recovery</b></div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn" onclick="switchLens('portfolio')">See Pattern</button>
+          <button class="dq-btn primary">Schedule Review</button>
+        </div>
+      </div>
+
+      <!-- Decision 4: Scope change approval (from Slack) -->
+      <div class="dq-item demo-block">
+        <div class="dq-priority"><div class="dq-priority-badge high">High</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag slack">Slack</span>
+            Approve scope change on 1431 Waterfront — boxing-themed wallpaper for Bedroom 5
+          </div>
+          <div class="dq-content-context">
+            <b>Austin</b> requested wallpaper instead of proposed mural to manage costs · Awaiting Mark's sign-off <span class="demo-flag">demo</span>
+          </div>
+          <div class="dq-impact good">Cost savings <b>~$2,400</b> vs. mural</div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn">View Details</button>
+          <button class="dq-btn primary">Approve</button>
+        </div>
+      </div>
+
+      <!-- Decision 5: PM rebalancing (REAL workload data) -->
+      <div class="dq-item">
+        <div class="dq-priority"><div class="dq-priority-badge med">Workload</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag pattern">Pattern</span>
+            PM workload imbalance — Matt at 17 projects, Allie at 1
+          </div>
+          <div class="dq-content-context">
+            Matt is <b>17x</b> Allie's load · Allie has been ramping for 30 days · 2-3 transfer candidates from Matt's portfolio
+          </div>
+          <div class="dq-impact">Burnout risk on Matt · <b>Capacity gain</b> if rebalanced</div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn" onclick="switchLens('pm')">Open PM Lens</button>
+          <button class="dq-btn primary">Suggest Transfers</button>
+        </div>
+      </div>
+
+      <!-- Decision 6: Going dark (Slack silence) -->
+      <div class="dq-item demo-block">
+        <div class="dq-priority"><div class="dq-priority-badge med">Going Dark</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag slack">Slack</span>
+            5 project channels silent for 7+ days · Including 6 Margit Ridgeway (Joseph Fogel)
+          </div>
+          <div class="dq-content-context">
+            Joseph Fogel has <b>3 active properties</b> · Silence pattern detected across the cluster · Multi-property risk <span class="demo-flag">demo</span>
+          </div>
+          <div class="dq-impact">Possible client friction on <b>3 projects</b></div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn">View Channels</button>
+          <button class="dq-btn primary">Draft Check-In</button>
+        </div>
+      </div>
+
+      <!-- Decision 7: Cribs Fee structural issue (REAL data) -->
+      <div class="dq-item">
+        <div class="dq-priority"><div class="dq-priority-badge low">Strategic</div></div>
+        <div class="dq-content">
+          <div class="dq-content-title">
+            <span class="dq-source-tag pattern">Pattern</span>
+            <span class="dq-source-tag calc">Margin Calc</span>
+            Cribs Fee deeply negative on 5 projects — structural pricing issue
+          </div>
+          <div class="dq-content-context">
+            Designed to "run at zero" but <b>98 Green Island at −36%</b>, <b>195 Hyland at −19%</b>, <b>355 Cohutta at −17%</b> · Worth team review with Steve & Mick
+          </div>
+          <div class="dq-impact">Cost structure variance · <b>Process gap</b></div>
+        </div>
+        <div class="dq-actions">
+          <button class="dq-btn">See Projects</button>
+          <button class="dq-btn primary">Schedule Review</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SLACK INTEL EXAMPLE — real data from 1431 Waterfront Dr -->
+  <div class="slack-intel">
+    <div class="si-head">
+      <div class="si-head-left">
+        <div class="si-icon">#</div>
+        <div>
+          <div class="si-title">Slack Intelligence Layer · Example from #waterfront-dr-1431</div>
+        </div>
+        <div class="si-subtitle">Auto-Synthesized · No Human Reading Required</div>
+      </div>
+      <div class="si-stat">Ingested: <b>2,000</b> messages · <b>28</b> users · <b>9 months</b></div>
+    </div>
+
+    <div class="si-grid">
+      <div class="si-section">
+        <div class="si-section-head">Design & Procurement</div>
+        <div class="si-section-body">
+          Team finalized orders for <b>Phase 1, Phase 2, and essentials</b>. Game room, outdoor bar, and boxing-themed bedroom locked in.
+        </div>
+        <div class="si-people"><b>Mica</b> initiated · <b>Aya</b> & <b>Apple Pedrosa</b> handled procurement</div>
+        <div class="si-decision">
+          <div class="si-decision-label">Key Decision Surfaced</div>
+          Austin requested boxing wallpaper instead of mural for Bedroom 5 to manage costs · <b>Saved ~$2,400</b>
+        </div>
+      </div>
+
+      <div class="si-section">
+        <div class="si-section-head">Construction & Permitting</div>
+        <div class="si-section-body">
+          Garage conversion, hot tub, sports court installed. Robin navigated township permitting for STR compliance.
+        </div>
+        <div class="si-people"><b>Lauren Worms</b> ran PM · <b>Robin</b> on permits</div>
+        <div class="si-decision" style="border-color: #F2A28C;">
+          <div class="si-decision-label" style="color: #F2A28C;">⚠ Risk Surfaced</div>
+          STR application <b>cancelled</b> — 90-day allowance exceeded · Township compliance issue
+        </div>
+      </div>
+
+      <div class="si-section">
+        <div class="si-section-head">Launch Prep & Photography</div>
+        <div class="si-section-body">
+          Sports court and hot tub inspections passed April 2026. Photography completed April 21, 2026.
+        </div>
+        <div class="si-people"><b>Austin</b> directed staging · Lifestyle shots requested in game room, theater, outdoors</div>
+        <div class="si-decision">
+          <div class="si-decision-label">Open Item</div>
+          $1,250 bathroom fixtures invoice disputed — Austin questioned whether already replaced
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- AI Suggestions Panel -->
+    <div class="ai-panel">
+      <div class="ai-head">
+        <div class="ai-dot"></div>
+        <div class="ai-title">For Your Attention</div>
+      </div>
+      <div class="ai-subtitle">AI-Surfaced · Pattern-Based</div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority urgent">Portfolio Pattern</div>
+        <div class="ai-item-text"><b>Design margin crisis</b>: 18 of 20 analyzed projects below 23% target. Mean is 14.8%. Single biggest margin opportunity.</div>
+        <button class="ai-action" onclick="switchLens('portfolio')">See Portfolio Lens</button>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority urgent">Outlier · Worst</div>
+        <div class="ai-item-text"><b>110 Old Ridge Rd</b> at 13.56% blended — worst project. Design at 7.9%, Cribs Fee at −11.5%.</div>
+        <button class="ai-action">Diagnose</button>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority insight">Outlier · Best</div>
+        <div class="ai-item-text"><b>366 Hyland Dr</b> at 25.54% — only project hitting target. Design hit 23.08%. Pattern worth replicating.</div>
+        <button class="ai-action">Study Pattern</button>
+      </div>
+
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority urgent">Workload <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text">PM imbalance: <b>Matt at 17, Allie at 1</b>. Risk on Matt's portfolio, capacity on Allie's.</div>
+        <button class="ai-action" onclick="switchLens('pm')">Open PM Lens</button>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority insight">Naming Pattern</div>
+        <div class="ai-item-text">3 different Hyland Dr projects · 366 (winner), 363, 195 (losing). Same street, very different margins.</div>
+        <button class="ai-action">Compare</button>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority urgent">Cribs Fee Issue</div>
+        <div class="ai-item-text"><b>5 projects deeply negative on Cribs Fee</b>. Worst: 98 Green Island −36%. Structural pricing issue.</div>
+        <button class="ai-action">Investigate</button>
+      </div>
+
+      <!-- ROI bar -->
+      <div class="roi-bar">
+        <div class="roi-label">Margin Recovery Math</div>
+        <div class="roi-stat">
+          <div class="roi-stat-value">$622K</div>
+          <div class="roi-stat-text">If design margin closes to 23% target</div>
+        </div>
+        <div class="roi-stat">
+          <div class="roi-stat-value">$1.1M</div>
+          <div class="roi-stat-text">If blended margin closes to 25% target</div>
+        </div>
+        <div class="roi-stat demo-block">
+          <div class="roi-stat-value">14.2 hrs</div>
+          <div class="roi-stat-text">Saved this week on status hunting <span class="demo-flag">demo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Grid -->
+    <div>
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <span class="filter-chip active">All Properties</span>
+        <span class="filter-chip">Techvestor Pipeline</span>
+        <span class="filter-chip">Direct Clients</span>
+        <span class="filter-chip">Below Target Margin</span>
+        <span class="filter-chip">By Market</span>
+        <span class="filter-chip">By PM</span>
+      </div>
+
+      <div class="grid-head">
+        <h3>Portfolio · Sorted by Margin Health</h3>
+        <div class="grid-head-meta">Showing 6 of 88 — load more →</div>
+      </div>
+
+      <div class="project-grid">
+        <!-- 366 Hyland Dr (the winner) -->
+        <div class="project-card" data-project="hyland366">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">366 Hyland Dr</div>
+              <div class="project-market">East Stroudsburg, PA · Cathay Shins</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag direct">Direct</span>
+              <span class="status-pill green">Winning</span>
+            </div>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">30.31%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin green">23.08%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Blended</div><div class="meta-cell-value green">25.54%</div></div>
+            <div><div class="meta-cell-label">Revenue</div><div class="meta-cell-value">$168.5K</div></div>
+            <div><div class="meta-cell-label">$/Week</div><div class="meta-cell-value">$2,690</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm demo-block"><div class="pm-avatar">M</div><span>Maureen <span class="demo-flag">demo</span></span></div>
+            <div class="project-next demo-block">Next: <b>Study & replicate</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+
+        <!-- 6105 7th Avenue (demo project with full Drive folder) -->
+        <div class="project-card" data-project="seventh">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">6105 7th Avenue Dr W</div>
+              <div class="project-market">Bradenton, FL · Katelyn Schneider</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag tv">TV Pipeline</span>
+              <span class="status-pill yellow">In Discovery <span class="demo-flag">demo</span></span>
+            </div>
+          </div>
+          <div class="dual-jobs demo-block">
+            <div class="dual-job"><div class="dual-job-label">Construction <span class="demo-flag">demo</span></div><div class="dual-job-margin yellow">TBD</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design <span class="demo-flag">demo</span></div><div class="dual-job-margin yellow">TBD</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Stage <span class="demo-flag">demo</span></div><div class="meta-cell-value">Sales Discovery</div></div>
+            <div><div class="meta-cell-label">Source</div><div class="meta-cell-value">STR Search</div></div>
+            <div><div class="meta-cell-label">SF Current</div><div class="meta-cell-value">1,485</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm"><div class="pm-avatar">D</div><span>David (Acq)</span></div>
+            <div class="project-next demo-block">Next: <b>Handoff to Ops</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+
+        <!-- 110 Old Ridge Rd (worst project) -->
+        <div class="project-card" data-project="oldridge">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">110 Old Ridge Rd</div>
+              <div class="project-market">Pocono Lake, PA · Direct</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag direct">Direct</span>
+              <span class="status-pill red">Critical</span>
+            </div>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">29.65%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin red">7.91%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Blended</div><div class="meta-cell-value red">13.56%</div></div>
+            <div><div class="meta-cell-label">Cribs Fee</div><div class="meta-cell-value red">−11.5%</div></div>
+            <div><div class="meta-cell-label">$/Week</div><div class="meta-cell-value red">$1,792</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm demo-block"><div class="pm-avatar">L</div><span>Lara <span class="demo-flag">demo</span></span></div>
+            <div class="project-next demo-block">Next: <b>Margin diagnostic</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+
+        <!-- 195 Hyland Dr (Cribs Fee bleeding) -->
+        <div class="project-card" data-project="hyland195">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">195 Hyland Dr</div>
+              <div class="project-market">East Stroudsburg, PA · Direct</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag direct">Direct</span>
+              <span class="status-pill yellow">At Risk</span>
+            </div>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">35.33%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin red">16.15%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Blended</div><div class="meta-cell-value yellow">19.39%</div></div>
+            <div><div class="meta-cell-label">Cribs Fee</div><div class="meta-cell-value red">−19.2%</div></div>
+            <div><div class="meta-cell-label">$/Week</div><div class="meta-cell-value">$4,559</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm demo-block"><div class="pm-avatar">M</div><span>Matt <span class="demo-flag">demo</span></span></div>
+            <div class="project-next demo-block">Next: <b>Cribs Fee review</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+
+        <!-- 98 Green Island (biggest revenue, worst Cribs Fee) -->
+        <div class="project-card" data-project="greenisland">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">98 Green Island Road</div>
+              <div class="project-market">Largo, FL · Direct</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag direct">Direct</span>
+              <span class="status-pill yellow">Big Revenue · Cribs Fee Bleeding</span>
+            </div>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">30.05%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin yellow">17.23%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Blended</div><div class="meta-cell-value yellow">22.28%</div></div>
+            <div><div class="meta-cell-label">Cribs Fee</div><div class="meta-cell-value red">−36.0%</div></div>
+            <div><div class="meta-cell-label">$/Week</div><div class="meta-cell-value green">$13,370</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm demo-block"><div class="pm-avatar">N</div><span>Nicole <span class="demo-flag">demo</span></span></div>
+            <div class="project-next demo-block">Next: <b>Fix Cribs Fee model</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+
+        <!-- 363 Oak Point (solid TV project) -->
+        <div class="project-card" data-project="oakpoint">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">363 Oak Point Road</div>
+              <div class="project-market">Asheville, NC · Techvestor</div>
+            </div>
+            <div class="project-tags">
+              <span class="pipeline-tag tv">TV Pipeline</span>
+              <span class="status-pill green">Solid</span>
+            </div>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">29.34%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin red">14.92%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">Blended</div><div class="meta-cell-value yellow">23.40%</div></div>
+            <div><div class="meta-cell-label">Revenue</div><div class="meta-cell-value">$294K</div></div>
+            <div><div class="meta-cell-label">$/Week</div><div class="meta-cell-value">$8,600</div></div>
+          </div>
+          <div class="project-card-foot">
+            <div class="project-pm demo-block"><div class="pm-avatar">L</div><span>Lauren <span class="demo-flag">demo</span></span></div>
+            <div class="project-next demo-block">Next: <b>Design pricing review</b> <span class="demo-flag">demo</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 2 — PORTFOLIO MARGIN (NEW) ============ -->
+<div class="lens" id="lens-portfolio">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Strategic View · For Josh & Sief</div>
+    </div>
+    <h1 class="page-title">Where is margin actually bleeding?</h1>
+    <div class="page-subtitle">Cross-portfolio analysis of 20 projects with margin calculator data · $4.54M aggregate revenue.</div>
+  </div>
+
+  <!-- The Headline Insight -->
+  <div class="portfolio-headline">
+    <div class="ph-grid">
+      <div class="ph-text">
+        <div class="ph-eyebrow">The Finding</div>
+        <h2 class="ph-title">It's not Construction. It's Design.</h2>
+        <div class="ph-sub">
+          Construction margin runs at <b style="color:var(--green);">30.3%</b> — beating the 27% target across <b style="color:var(--green);">19 of 20</b> projects. But Design margin runs at just <b>14.8%</b> — falling below the 23% target on <b>18 of 20</b> projects. That 8.2 percentage point gap on Design is the single largest margin opportunity in the portfolio.
+        </div>
+      </div>
+      <div class="ph-bignum">
+        <div class="ph-bignum-val">$622K</div>
+        <div class="ph-bignum-label">Annual recoverable<br>if Design hits target</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three-component breakdown -->
+  <div class="margin-breakdown">
+    <div class="mb-card healthy">
+      <div class="mb-head">
+        <div class="mb-title">Construction</div>
+        <div class="mb-status healthy">Healthy</div>
+      </div>
+      <div class="mb-row"><span class="mb-row-label">Mean Margin</span><span class="mb-row-val green">30.29%</span></div>
+      <div class="mb-row"><span class="mb-row-label">Target</span><span class="mb-row-val">27.00%</span></div>
+      <div class="mb-row"><span class="mb-row-label">Below Target</span><span class="mb-row-val">1 of 20</span></div>
+      <div class="mb-row"><span class="mb-row-label">Best</span><span class="mb-row-val">35.3% · 195 Hyland</span></div>
+      <div class="mb-row"><span class="mb-row-label">Worst</span><span class="mb-row-val">26.0% · 140 Elk Ln</span></div>
+      <div class="mb-gap good"><b>Strength:</b> Construction is the engine. Hold the line and protect it from cost creep.</div>
+    </div>
+
+    <div class="mb-card alarm">
+      <div class="mb-head">
+        <div class="mb-title">Design</div>
+        <div class="mb-status alarm">Critical</div>
+      </div>
+      <div class="mb-row"><span class="mb-row-label">Mean Margin</span><span class="mb-row-val red">14.80%</span></div>
+      <div class="mb-row"><span class="mb-row-label">Target</span><span class="mb-row-val">23.00%</span></div>
+      <div class="mb-row"><span class="mb-row-label">Below Target</span><span class="mb-row-val red">18 of 20</span></div>
+      <div class="mb-row"><span class="mb-row-label">Best</span><span class="mb-row-val">23.1% · 366 Hyland</span></div>
+      <div class="mb-row"><span class="mb-row-label">Worst</span><span class="mb-row-val">7.9% · 110 Old Ridge</span></div>
+      <div class="mb-gap bad"><b>The opportunity:</b> 8.2pp gap. Investigate design pricing model + SHL Design Fee structure + scope creep.</div>
+    </div>
+
+    <div class="mb-card">
+      <div class="mb-head">
+        <div class="mb-title">Cribs Fee</div>
+        <div class="mb-status warn">Inconsistent</div>
+      </div>
+      <div class="mb-row"><span class="mb-row-label">Designed to run</span><span class="mb-row-val">≈ 0%</span></div>
+      <div class="mb-row"><span class="mb-row-label">Near zero (intent)</span><span class="mb-row-val green">9 of 20</span></div>
+      <div class="mb-row"><span class="mb-row-label">Profitable</span><span class="mb-row-val green">6 of 20</span></div>
+      <div class="mb-row"><span class="mb-row-label">Bleeding (&lt;-5%)</span><span class="mb-row-val red">5 of 20</span></div>
+      <div class="mb-row"><span class="mb-row-label">Worst</span><span class="mb-row-val red">−36% · 98 Green Island</span></div>
+      <div class="mb-gap"><b>The puzzle:</b> Cribs Fee should run flat. Why are 5 projects deeply negative? Pricing process issue.</div>
+    </div>
+  </div>
+
+  <!-- Ranked project table -->
+  <div class="ranked-list">
+    <div class="ranked-head">
+      <div class="ranked-title">All Projects · Ranked by Blended Margin</div>
+      <div class="ranked-meta">Click any row to open the Project Lens</div>
+    </div>
+    <table class="rank-table">
+      <thead>
+        <tr>
+          <th style="width:30px;">#</th>
+          <th>Property</th>
+          <th class="num">Revenue</th>
+          <th class="num">Blended</th>
+          <th class="num">Construction</th>
+          <th class="num">Design</th>
+          <th class="num">Cribs Fee</th>
+          <th class="num">$/Week</th>
+          <th>PM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="winner">
+          <td><span class="rank-num">1</span></td>
+          <td><span class="proj-name">366 Hyland Dr</span></td>
+          <td class="num">$168.5K</td>
+          <td class="num green">25.54%</td>
+          <td class="num green">30.31%</td>
+          <td class="num green">23.08%</td>
+          <td class="num">+7.3%</td>
+          <td class="num">$2,690</td>
+          <td>Maureen <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">2</span></td>
+          <td><span class="proj-name">297 Daves Rd</span></td>
+          <td class="num">$70.3K</td>
+          <td class="num green">24.96%</td>
+          <td class="num green">30.10%</td>
+          <td class="num">—</td>
+          <td class="num">0.0%</td>
+          <td class="num">$2,194</td>
+          <td>Chad <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">3</span></td>
+          <td><span class="proj-name">363 Oak Point Road</span></td>
+          <td class="num">$294.1K</td>
+          <td class="num yellow">23.40%</td>
+          <td class="num green">29.34%</td>
+          <td class="num red">14.92%</td>
+          <td class="num">+10.3%</td>
+          <td class="num">$8,600</td>
+          <td>Lauren <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">4</span></td>
+          <td><span class="proj-name">355 Cohutta Mountain</span></td>
+          <td class="num">$153.3K</td>
+          <td class="num yellow">22.92%</td>
+          <td class="num green">29.77%</td>
+          <td class="num yellow">21.47%</td>
+          <td class="num red">−17.4%</td>
+          <td class="num">$2,929</td>
+          <td>Matt <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">5</span></td>
+          <td><span class="proj-name">163 Grand Lagoon Shores</span></td>
+          <td class="num">$322.0K</td>
+          <td class="num yellow">22.60%</td>
+          <td class="num green">30.92%</td>
+          <td class="num red">11.44%</td>
+          <td class="num">+4.4%</td>
+          <td class="num">$9,094</td>
+          <td>Nicole <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">6</span></td>
+          <td><span class="proj-name">120 Wildflower</span></td>
+          <td class="num">$308.0K</td>
+          <td class="num yellow">22.40%</td>
+          <td class="num green">30.58%</td>
+          <td class="num red">17.37%</td>
+          <td class="num red">−8.5%</td>
+          <td class="num">$5,749</td>
+          <td>Lauren <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">7</span></td>
+          <td><span class="proj-name">98 Green Island Road</span></td>
+          <td class="num">$480.1K</td>
+          <td class="num yellow">22.28%</td>
+          <td class="num green">30.05%</td>
+          <td class="num red">17.23%</td>
+          <td class="num red">−36.0%</td>
+          <td class="num green">$13,370</td>
+          <td>Nicole <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">8</span></td>
+          <td><span class="proj-name">87 Rustic Rdg</span></td>
+          <td class="num">$177.5K</td>
+          <td class="num yellow">22.02%</td>
+          <td class="num green">29.77%</td>
+          <td class="num red">10.94%</td>
+          <td class="num green">+24.4%</td>
+          <td class="num">$4,886</td>
+          <td>Lara <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">9</span></td>
+          <td><span class="proj-name">10 Penny Ave</span></td>
+          <td class="num">$219.3K</td>
+          <td class="num yellow">21.01%</td>
+          <td class="num green">30.03%</td>
+          <td class="num red">14.71%</td>
+          <td class="num">+2.2%</td>
+          <td class="num">$5,759</td>
+          <td>Chad <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">10</span></td>
+          <td><span class="proj-name">168 Granada Dr</span></td>
+          <td class="num">$187.2K</td>
+          <td class="num yellow">20.88%</td>
+          <td class="num green">29.50%</td>
+          <td class="num red">13.64%</td>
+          <td class="num">+14.8%</td>
+          <td class="num">$4,888</td>
+          <td>Matt <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">11</span></td>
+          <td><span class="proj-name">307 Marquis</span></td>
+          <td class="num">$176.1K</td>
+          <td class="num yellow">20.84%</td>
+          <td class="num green">28.75%</td>
+          <td class="num red">13.82%</td>
+          <td class="num green">+21.5%</td>
+          <td class="num">$4,585</td>
+          <td>Lara <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">12</span></td>
+          <td><span class="proj-name">356 Miller Ave</span></td>
+          <td class="num">$230.2K</td>
+          <td class="num yellow">20.75%</td>
+          <td class="num green">30.67%</td>
+          <td class="num red">16.92%</td>
+          <td class="num">0.4%</td>
+          <td class="num">$5,971</td>
+          <td>Maureen <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">13</span></td>
+          <td><span class="proj-name">394 Mountain Trce</span></td>
+          <td class="num">$224.8K</td>
+          <td class="num yellow">20.74%</td>
+          <td class="num green">32.19%</td>
+          <td class="num red">17.89%</td>
+          <td class="num">−2.4%</td>
+          <td class="num">$5,828</td>
+          <td>Nicole <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">14</span></td>
+          <td><span class="proj-name">140 Elk Ln</span></td>
+          <td class="num">$461.6K</td>
+          <td class="num yellow">20.72%</td>
+          <td class="num">26.00%</td>
+          <td class="num red">14.42%</td>
+          <td class="num">−2.7%</td>
+          <td class="num">$11,959</td>
+          <td>Lauren <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">15</span></td>
+          <td><span class="proj-name">217 Wildlife</span></td>
+          <td class="num">$190.9K</td>
+          <td class="num yellow">20.24%</td>
+          <td class="num green">30.06%</td>
+          <td class="num red">9.98%</td>
+          <td class="num">+4.3%</td>
+          <td class="num">$4,829</td>
+          <td>Chad <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank-num">16</span></td>
+          <td><span class="proj-name">363 Crestview Dr</span></td>
+          <td class="num">$246.5K</td>
+          <td class="num yellow">20.00%</td>
+          <td class="num green">30.82%</td>
+          <td class="num red">11.93%</td>
+          <td class="num">+2.9%</td>
+          <td class="num">$6,162</td>
+          <td>Matt <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr class="loser">
+          <td><span class="rank-num">17</span></td>
+          <td><span class="proj-name">195 Hyland Dr</span></td>
+          <td class="num">$188.1K</td>
+          <td class="num red">19.39%</td>
+          <td class="num green">35.33%</td>
+          <td class="num red">16.15%</td>
+          <td class="num red">−19.2%</td>
+          <td class="num">$4,559</td>
+          <td>Matt <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr class="loser">
+          <td><span class="rank-num">18</span></td>
+          <td><span class="proj-name">58 Mandalay Rdg</span></td>
+          <td class="num">$179.0K</td>
+          <td class="num red">18.61%</td>
+          <td class="num green">33.01%</td>
+          <td class="num red">16.13%</td>
+          <td class="num">−2.6%</td>
+          <td class="num">$4,164</td>
+          <td>Maureen <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr class="loser">
+          <td><span class="rank-num">19</span></td>
+          <td><span class="proj-name">363 Hyland Dr</span></td>
+          <td class="num">$160.8K</td>
+          <td class="num red">18.01%</td>
+          <td class="num green">28.93%</td>
+          <td class="num red">11.21%</td>
+          <td class="num green">+17.0%</td>
+          <td class="num">$2,414</td>
+          <td>Matt <span class="demo-flag">demo</span></td>
+        </tr>
+        <tr class="loser">
+          <td><span class="rank-num">20</span></td>
+          <td><span class="proj-name">110 Old Ridge Rd</span></td>
+          <td class="num">$105.7K</td>
+          <td class="num red">13.56%</td>
+          <td class="num green">29.65%</td>
+          <td class="num red">7.91%</td>
+          <td class="num red">−11.5%</td>
+          <td class="num red">$1,792</td>
+          <td>Lara <span class="demo-flag">demo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 3 — PM VIEW ============ -->
+<div class="lens" id="lens-pm">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Team Performance · 7 Project Managers</div>
+    </div>
+    <h1 class="page-title">Your team, at a glance.</h1>
+    <div class="page-subtitle">Workload balance · Performance · 1-on-1 prep · Pattern-based coaching insights.</div>
+  </div>
+
+  <div class="pm-grid">
+    <!-- Matt - OVERLOADED -->
+    <div class="pm-card overloaded">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">M</div>
+        <div>
+          <div class="pm-name">Matt</div>
+          <div class="pm-role">PM · Senior</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num over">17</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">19.5%</div>
+          <div class="pm-stat-sub red">3 of 4 below target</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Design Margin <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">13.2%</div>
+          <div class="pm-stat-sub red">All projects below</div>
+        </div>
+      </div>
+      <div class="pm-flag demo-block">Capacity Risk · Design Pricing Coaching <span class="demo-flag" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);">demo</span></div>
+    </div>
+
+    <!-- Maureen -->
+    <div class="pm-card selected">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">M</div>
+        <div>
+          <div class="pm-name">Maureen</div>
+          <div class="pm-role">PM</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">16</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">21.6%</div>
+          <div class="pm-stat-sub green">Owns the winner</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Best Project <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">25.5%</div>
+          <div class="pm-stat-sub green">366 Hyland Dr</div>
+        </div>
+      </div>
+      <div class="pm-flag demo-block" style="background:var(--green);">Best Practice Source <span class="demo-flag" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);">demo</span></div>
+    </div>
+
+    <!-- Chad -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">C</div>
+        <div>
+          <div class="pm-name">Chad</div>
+          <div class="pm-role">PM</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">16</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">22.1%</div>
+          <div class="pm-stat-sub yellow">Strong construction</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Kickoff→Pres <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">31<span style="font-size:11px;font-weight:400;"> d</span></div>
+          <div class="pm-stat-sub red">+10d vs avg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lauren -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">L</div>
+        <div>
+          <div class="pm-name">Lauren</div>
+          <div class="pm-role">PM</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">14</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">22.3%</div>
+          <div class="pm-stat-sub yellow">Mixed performance</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Design Margin <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">15.6%</div>
+          <div class="pm-stat-sub red">Below target</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nicole -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">N</div>
+        <div>
+          <div class="pm-name">Nicole</div>
+          <div class="pm-role">PM</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">13</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">21.8%</div>
+          <div class="pm-stat-sub yellow">Steady performer</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Top Revenue <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">$480K</div>
+          <div class="pm-stat-sub green">98 Green Island</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lara -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">L</div>
+        <div>
+          <div class="pm-name">Lara</div>
+          <div class="pm-role">PM</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">11</div>
+        <div class="pm-workload-label">active projects</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">17.9%</div>
+          <div class="pm-stat-sub red">Owns 2 worst</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Worst Project <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">13.6%</div>
+          <div class="pm-stat-sub red">110 Old Ridge</div>
+        </div>
+      </div>
+      <div class="pm-flag demo-block">Coaching Priority <span class="demo-flag" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);">demo</span></div>
+    </div>
+
+    <!-- Allie - UNDERLOADED -->
+    <div class="pm-card underloaded">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">A</div>
+        <div>
+          <div class="pm-name">Allie</div>
+          <div class="pm-role">PM · Ramping</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num under">1</div>
+        <div class="pm-workload-label">active project</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Blended <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">—</div>
+          <div class="pm-stat-sub">Too few</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Capacity <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">+3</div>
+          <div class="pm-stat-sub yellow">Room to grow</div>
+        </div>
+      </div>
+      <div class="pm-flag yellow demo-block">Ready for More <span class="demo-flag" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);">demo</span></div>
+    </div>
+
+    <!-- Olivia -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <div class="pm-big-avatar">O</div>
+        <div>
+          <div class="pm-name">Olivia</div>
+          <div class="pm-role">Design Lead</div>
+        </div>
+      </div>
+      <div class="pm-workload">
+        <div class="pm-workload-num ok">88</div>
+        <div class="pm-workload-label">design jobs</div>
+      </div>
+      <div class="pm-stats-grid">
+        <div>
+          <div class="pm-stat-label">Avg Design Margin <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">14.8%</div>
+          <div class="pm-stat-sub red">8pp below target</div>
+        </div>
+        <div>
+          <div class="pm-stat-label">Best Design <span class="demo-flag">demo</span></div>
+          <div class="pm-stat-value">23.1%</div>
+          <div class="pm-stat-sub green">366 Hyland</div>
+        </div>
+      </div>
+      <div class="pm-flag demo-block">Strategic Priority <span class="demo-flag" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);">demo</span></div>
+    </div>
+  </div>
+
+  <div class="pm-detail-section">
+    <div class="pm-detail-head">
+      <div class="pm-detail-title">
+        <h3>Maureen · Best Practice Extraction</h3>
+        <div class="sub">16 active projects · Avg blended 21.6% · Owns the only project hitting 25% target</div>
+      </div>
+      <div class="pm-actions">
+        <button class="btn">Open Slack DM</button>
+        <button class="btn primary">Schedule Best-Practice Session</button>
+      </div>
+    </div>
+
+    <div class="pm-1on1-prep demo-block">
+      <div class="pm-1on1-prep-head">Strategic Talking Points · Pattern-Based <span class="demo-flag">demo</span></div>
+      <ul class="pm-1on1-prep-list">
+        <li><b>The win to dissect:</b> 366 Hyland Dr is the only project hitting 25% blended target. Design margin at 23.08% — only design margin hitting target in the portfolio.</li>
+        <li><b>The pattern:</b> Design revenue at $41K vs typical $80-120K. Hard cost tight at $31,637. <b>Either we underprice design typically, or 366 Hyland scoped it leaner.</b></li>
+        <li><b>The ask:</b> Walk through her design scoping process. What did she do differently? Did Olivia scope this one differently?</li>
+        <li><b>The replication play:</b> Pair Maureen with Matt (worst design margin) and Lara (owns 2 worst projects) on next 2 design scoping sessions.</li>
+        <li><b>Capacity coaching:</b> 16 active projects — healthy range. Resist temptation to dump more onto her — protect the winner.</li>
+      </ul>
+    </div>
+
+    <div class="grid-head" style="margin-top:6px;">
+      <h3 style="font-size:14px;">Maureen's Top Projects <span class="demo-flag">demo · PM assignments</span></h3>
+      <div class="grid-head-meta">Sorted by blended margin</div>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-card-head">
+          <div class="project-name-block">
+            <div class="project-name">366 Hyland Dr</div>
+            <div class="project-market">East Stroudsburg, PA · Direct</div>
+          </div>
+          <span class="status-pill green">Winning</span>
+        </div>
+        <div class="dual-jobs">
+          <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">30.31%</div></div>
+          <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin green">23.08%</div></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-head">
+          <div class="project-name-block">
+            <div class="project-name">356 Miller Ave</div>
+            <div class="project-market">Direct</div>
+          </div>
+          <span class="status-pill yellow">At Risk</span>
+        </div>
+        <div class="dual-jobs">
+          <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">30.67%</div></div>
+          <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin red">16.92%</div></div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-card-head">
+          <div class="project-name-block">
+            <div class="project-name">58 Mandalay Rdg</div>
+            <div class="project-market">Direct</div>
+          </div>
+          <span class="status-pill red">Critical</span>
+        </div>
+        <div class="dual-jobs">
+          <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">33.01%</div></div>
+          <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin red">16.13%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 4 — PROJECT LENS (6105 7th Avenue Dr W) ============ -->
+<div class="lens" id="lens-project">
+<div class="container">
+  <button class="project-view-back" onclick="switchLens('command')">← Back to Command Center</button>
+
+  <div class="project-view-head">
+    <div class="pv-top">
+      <div>
+        <div class="pv-eyebrow">
+          <span>Property · Sales Discovery Phase</span>
+          <span class="pipeline-tag tv">TV Pipeline</span>
+        </div>
+        <div class="pv-title">6105 7th Avenue Dr W</div>
+        <div class="pv-meta">Bradenton, FL 34209 · Client: Katelyn Schneider · Acquisition: David (Search) · Carson's Underwriting</div>
+      </div>
+      <div class="pv-actions">
+        <button class="pv-btn">Open Drive Folder</button>
+        <button class="pv-btn">Open Buildertrend</button>
+        <button class="pv-btn primary">Open Margin Calculator</button>
+      </div>
+    </div>
+
+    <div class="pv-jobs">
+      <div class="pv-job demo-block">
+        <div class="pv-job-head">
+          <div class="pv-job-title">Construction Job <span class="demo-flag">demo</span></div>
+          <div class="pv-job-stage">Awaiting Estimate</div>
+        </div>
+        <div class="pv-job-stats">
+          <div><div class="pv-job-stat-label">Estimated</div><div class="pv-job-stat-value">TBD</div></div>
+          <div><div class="pv-job-stat-label">Target Margin</div><div class="pv-job-stat-value">27%+</div></div>
+          <div><div class="pv-job-stat-label">Sub Quotes</div><div class="pv-job-stat-value yellow">0 of 6</div></div>
+        </div>
+      </div>
+      <div class="pv-job demo-block">
+        <div class="pv-job-head">
+          <div class="pv-job-title">Design Job <span class="demo-flag">demo</span></div>
+          <div class="pv-job-stage">Brief Captured</div>
+        </div>
+        <div class="pv-job-stats">
+          <div><div class="pv-job-stat-label">Estimated</div><div class="pv-job-stat-value">TBD</div></div>
+          <div><div class="pv-job-stat-label">Target Margin</div><div class="pv-job-stat-value">23%+</div></div>
+          <div><div class="pv-job-stat-label">SHL Estimate</div><div class="pv-job-stat-value yellow">Pending</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pv-body">
+    <div>
+      <!-- Client Context (from Intake Form) -->
+      <div class="client-context">
+        <div class="cc-head">From Sales Discovery · Internal Intake Form</div>
+        <div class="cc-grid">
+          <div>
+            <div class="cc-item" style="margin-bottom:12px;">
+              <div class="cc-label">Client Profile</div>
+              <div class="cc-val"><b>Katelyn Schneider</b> · Married to Jeremy · Millennial · Accountant · First-time STR owner · Lives in Leesburg, VA</div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-label">Property Goals</div>
+              <div class="cc-val">3 Bed / 2 Bath · 1,485 SF current · <b>Adding 4th bed at garage</b> · Occupancy goal: 10-14 · Loves Florida, will visit</div>
+            </div>
+          </div>
+          <div>
+            <div class="cc-item" style="margin-bottom:12px;">
+              <div class="cc-label">Services Needed</div>
+              <div class="cc-val">E-Design · Backyard Amenities · Amenities · Construction · FFE · Full Project (Construction + Design)</div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-label">Deal Source</div>
+              <div class="cc-val"><b>STR Search</b> · Acquisition: David · Underwriting by Carson</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The TRIGGER - this is the gold from Sief's vision -->
+        <div class="cc-trigger">
+          <div class="cc-trigger-label">⚠ Client Vibes / Triggers · From Sales Team</div>
+          <div class="cc-trigger-text">"Katelyn is an Accountant and will take her time to go through every line, every detail. She is a numbers gal and wants to stay in budget. We are at the top of her budget. She wants the design to appeal to families but doesn't want it to feel childish."</div>
+        </div>
+
+        <div class="cc-trigger" style="margin-top:8px; border-color:var(--tv);">
+          <div class="cc-trigger-label" style="color:var(--tv);">Search Game Plan · From Carson</div>
+          <div class="cc-trigger-text">"Straightforward FL gameplan. There is a 5ft easement off the back of the property that we should be careful with for backyard amenities."</div>
+        </div>
+      </div>
+
+      <!-- Margin Calculator Live Panel -->
+      <div class="margin-calc-panel demo-block">
+        <div class="mcp-head">
+          <span>Margin Calculator · Live Status <span class="demo-flag">demo · no calc uploaded for this property</span></span>
+          <a href="#" class="mcp-link">Open Sheet →</a>
+        </div>
+        <div class="mcp-grid">
+          <div class="mcp-cell">
+            <div class="mcp-cell-label">Total Project Rev</div>
+            <div class="mcp-cell-val">TBD</div>
+            <div class="mcp-cell-sub">Awaiting estimates</div>
+          </div>
+          <div class="mcp-cell">
+            <div class="mcp-cell-label">Target Blended</div>
+            <div class="mcp-cell-val green">25%+</div>
+            <div class="mcp-cell-sub">Portfolio target</div>
+          </div>
+          <div class="mcp-cell">
+            <div class="mcp-cell-label">Square Footage</div>
+            <div class="mcp-cell-val">1,485</div>
+            <div class="mcp-cell-sub">+ 4th bed conversion</div>
+          </div>
+          <div class="mcp-cell">
+            <div class="mcp-cell-label">Bradenton Market Avg</div>
+            <div class="mcp-cell-val">21.0%</div>
+            <div class="mcp-cell-sub">Based on 8 completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Timeline -->
+      <div class="pv-main">
+        <div class="pv-section-head">
+          <div class="pv-section-title">Project Activity · All Sources <span class="demo-flag">demo · entire feed</span></div>
+          <div class="pv-tabs">
+            <div class="pv-tab active">All</div>
+            <div class="pv-tab">Buildertrend</div>
+            <div class="pv-tab">Slack</div>
+            <div class="pv-tab">Email</div>
+            <div class="pv-tab">Fathom</div>
+          </div>
+        </div>
+
+        <div class="demo-section-banner">
+          ⚠ Activity feed is fully fabricated for illustration. No Slack, Email, Fathom, or Buildertrend data was uploaded for this property.
+        </div>
+
+        <div class="comm-item demo-row">
+          <div class="comm-time">2h ago</div>
+          <div>
+            <div class="comm-meta"><span class="comm-source bt">Buildertrend</span><span class="comm-from">Intake form synced</span></div>
+            <div class="comm-text">Intake form data ingested into project record · Client profile, vibes, triggers, search game plan now visible in command center.</div>
+          </div>
+        </div>
+
+        <div class="comm-item demo-row">
+          <div class="comm-time">Yesterday</div>
+          <div>
+            <div class="comm-meta"><span class="comm-source fathom">Fathom</span><span class="comm-from">Sales Discovery Call · David & Katelyn</span></div>
+            <div class="comm-text">"Katelyn is detail-oriented, wants to review every line. First-time STR. Budget is tight but firm. Family-appeal aesthetic without feeling childish. Pool restoration discussed."</div>
+          </div>
+        </div>
+
+        <div class="comm-item demo-row">
+          <div class="comm-time">2d ago</div>
+          <div>
+            <div class="comm-meta"><span class="comm-source email">Email</span><span class="comm-from">Carson → David</span></div>
+            <div class="comm-text">"Straightforward FL gameplan. Watch the 5ft easement off the back of property for backyard amenities scope."</div>
+          </div>
+        </div>
+
+        <div class="comm-item demo-row">
+          <div class="comm-time">3d ago</div>
+          <div>
+            <div class="comm-meta"><span class="comm-source internal">Internal</span><span class="comm-from">Sales Team</span></div>
+            <div class="comm-text">Teaser Deck delivered to Katelyn · Matterport tour link shared · Inspection report (4 Point + Wind Mitigation + Pool) uploaded to Drive.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side Panel -->
+    <div class="pv-side">
+      <!-- Drive Resources -->
+      <div class="side-card">
+        <div class="side-card-head">Project Resources · From Drive</div>
+        <div class="sub-row"><span class="sub-name">📋 Intake Form (Katelyn Schneider)</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">🏠 Matterport 3D Tour</span><span style="font-size:10px;color:var(--gold-dark);">Open →</span></div>
+        <div class="sub-row"><span class="sub-name">📐 Floor Plan (PDF + SVG)</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">📸 Drone Photos (16)</span><span style="font-size:10px;color:var(--gold-dark);">Open →</span></div>
+        <div class="sub-row"><span class="sub-name">🔍 Inspection Report (Full)</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">🏊 Pool Inspection</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">🌬 Wind Mitigation</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">📊 Repair Pricer</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">🗺 Property Survey</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">📑 KOC (Kickoff Call Doc)</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">🎨 Teaser Deck</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">📈 Carson's Underwriting</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+      </div>
+
+      <!-- Sales Required Items Checklist -->
+      <div class="side-card demo-block">
+        <div class="side-card-head">Sales Handoff Checklist <span class="demo-flag">demo · statuses</span></div>
+        <div class="sub-row"><span class="sub-name">✅ Matterport</span><span class="sub-status received">Done</span></div>
+        <div class="sub-row"><span class="sub-name">⏳ Budget Sheet</span><span class="sub-status pending">Pending</span></div>
+        <div class="sub-row"><span class="sub-name">✅ Inspection Report</span><span class="sub-status received">Done</span></div>
+        <div class="sub-row"><span class="sub-name">✅ Deposit Paid ($15K)</span><span class="sub-status received">Done</span></div>
+        <div class="sub-row"><span class="sub-name">✅ Service Agreement</span><span class="sub-status received">Done</span></div>
+        <div class="sub-row"><span class="sub-name">✅ Personal Profile</span><span class="sub-status received">Done</span></div>
+      </div>
+
+      <!-- Market Insight -->
+      <div class="side-card demo-block">
+        <div class="side-card-head">Market Baseline · Bradenton, FL <span class="demo-flag">demo</span></div>
+        <div class="insight-card-text">
+          Based on <b>8 completed Bradenton projects</b>:
+          <br><br>
+          Avg blended margin: <b>21.0%</b><br>
+          Avg construction $/sqft: <b>$58</b><br>
+          Avg design fee: <b>$95K</b><br>
+          Avg project length: <b>9.2 weeks</b>
+        </div>
+      </div>
+
+      <!-- AI Recommendation -->
+      <div class="side-card demo-block" style="border-color: var(--gold); border-width: 1.5px;">
+        <div class="side-card-head" style="color: var(--gold-dark);">Pre-Scoping Intelligence <span class="demo-flag">demo</span></div>
+        <div class="insight-card-text">
+          <b>For Katelyn's project:</b> She's an Accountant who reviews every line. Strongly recommend <b>itemized estimates with clear scope boundaries</b>.
+        </div>
+        <div class="insight-card" style="background: var(--cream-soft); margin-top:10px;">
+          <div class="insight-card-head">Design Pricing Watch</div>
+          <div class="insight-card-text">Portfolio design margin avg is <b>14.8%</b>, target is <b>23%</b>. <b>Make sure SHL Design Fee is scoped tightly</b> — last 18 projects bled design margin.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  // Demo flag toggle
+  const demoToggle = document.getElementById('demoToggle');
+  const demoState = document.getElementById('demoState');
+  demoToggle.addEventListener('click', () => {
+    document.body.classList.toggle('demo-on');
+    document.body.classList.toggle('demo-off');
+    demoState.textContent = document.body.classList.contains('demo-on') ? 'ON' : 'OFF';
+  });
+
+  function switchLens(lensName) {
+    document.querySelectorAll('.lens-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.lens').forEach(l => l.classList.remove('active'));
+    document.querySelector(`.lens-tab[data-lens="${lensName}"]`).classList.add('active');
+    document.getElementById(`lens-${lensName}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.lens-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchLens(tab.dataset.lens));
+  });
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => switchLens('project'));
+  });
+  document.querySelectorAll('.rank-table tbody tr').forEach(row => {
+    row.addEventListener('click', () => switchLens('project'));
+  });
+  document.querySelectorAll('.pm-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.parentElement.querySelectorAll('.filter-chip').forEach(s => s.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.pv-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tab.parentElement.querySelectorAll('.pv-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
