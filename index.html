@@ -9,31 +9,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --forest: #1F3D2A;
-    --forest-dark: #152A1D;
-    --forest-deep: #0E1F14;
-    --cream: #F5EFE0;
-    --cream-light: #FBF7EC;
-    --cream-soft: #F8F2E4;
-    --gold: #C9A961;
-    --gold-dark: #B8964A;
-    --gold-light: #DCC07F;
-    --ink: #2A2A2A;
-    --muted: #6B6B5A;
+    --forest: #1B3D6B;
+    --forest-dark: #122A4D;
+    --forest-deep: #0A1B33;
+    --cream: #FFFFFF;
+    --cream-light: #F8FAFC;
+    --cream-soft: #EEF2F7;
+    --gold: #B89968;
+    --gold-dark: #9C8050;
+    --gold-light: #D4BC8E;
+    --ink: #1F2937;
+    --muted: #64748B;
     --white: #FFFFFF;
     --red: #B5453C;
-    --red-light: #E8D3D1;
+    --red-light: #FCE4E2;
     --yellow: #C28F3C;
-    --yellow-light: #F0E2C4;
-    --green: #5A7A4E;
-    --green-light: #DCE5D4;
-    --tv: #4A6FA5;
-    --tv-light: #D5DFEC;
+    --yellow-light: #FCF0D9;
+    --green: #4A7A52;
+    --green-light: #DDEBDF;
+    --tv: #1B3D6B;
+    --tv-light: #DAE3EF;
     --direct: #8B6F4A;
-    --direct-light: #E6DAC8;
-    --border: rgba(31, 61, 42, 0.12);
-    --shadow-sm: 0 1px 2px rgba(31, 61, 42, 0.06);
-    --shadow-md: 0 4px 12px rgba(31, 61, 42, 0.08);
+    --direct-light: #EFE6D7;
+    --border: rgba(27, 61, 107, 0.12);
+    --shadow-sm: 0 1px 2px rgba(27, 61, 107, 0.06);
+    --shadow-md: 0 4px 12px rgba(27, 61, 107, 0.08);
+    --shadow-lg: 0 12px 32px rgba(27, 61, 107, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -1010,7 +1011,7 @@
     gap: 16px;
     padding: 14px 20px;
     border-bottom: 1px solid var(--border);
-    align-items: center;
+    align-items: start;
     cursor: pointer;
     transition: background 0.15s;
   }
@@ -1098,6 +1099,107 @@
   }
   .dq-impact b { color: var(--red); font-style: normal; }
   .dq-impact.good b { color: var(--green); }
+
+  /* ====== INLINE SLACK DRAFT (killer action) ====== */
+  .dq-draft {
+    grid-column: 1 / -1;
+    margin-top: 14px;
+    background: var(--cream-soft);
+    border-radius: 5px;
+    padding: 14px 16px;
+    border-left: 3px solid #4A154B;
+  }
+  .dq-draft-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .dq-draft-icon {
+    width: 20px; height: 20px;
+    background: #4A154B;
+    color: var(--white);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 11px;
+  }
+  .dq-draft-label {
+    font-size: 10.5px; color: var(--muted);
+    letter-spacing: 1px; text-transform: uppercase; font-weight: 700;
+  }
+  .dq-draft-channel {
+    font-size: 11px; color: var(--forest); font-weight: 600;
+    background: var(--white); padding: 2px 8px; border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .dq-draft-textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    resize: vertical;
+    min-height: 70px;
+    background: var(--white);
+  }
+  .dq-draft-textarea:focus { outline: 1px solid var(--gold); border-color: var(--gold); }
+  .dq-draft-actions {
+    display: flex; gap: 8px; align-items: center; justify-content: space-between;
+    margin-top: 10px;
+  }
+  .dq-draft-tone {
+    display: flex; gap: 4px;
+  }
+  .dq-tone-chip {
+    font-size: 10px; padding: 3px 8px; border-radius: 10px;
+    background: var(--white); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer; font-weight: 500;
+  }
+  .dq-tone-chip.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+  .dq-send-btn {
+    background: #4A154B;
+    color: var(--white);
+    border: none;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .dq-send-btn:hover { background: #3A1140; }
+
+  /* ====== CAPTURE THIS BUTTON ====== */
+  .capture-this {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(184, 153, 104, 0.15);
+    color: var(--gold-dark);
+    border: 1px dashed var(--gold);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 10.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .capture-this:hover {
+    background: var(--gold);
+    color: var(--white);
+    border-style: solid;
+  }
+  .capture-this::before {
+    content: '+';
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
 
   /* ====== SLACK INTEL CARD ====== */
   .slack-intel {
@@ -1432,7 +1534,7 @@
 <body class="demo-on">
 
 <div class="mockup-banner">
-  <span>Vision Mockup V6 · Built on Real Data + Leadership Interview · For Mark & Josh</span>
+  <span>Vision Mockup V7 · Built on Real Operational Data · For Leadership Review</span>
   <span class="demo-toggle" id="demoToggle">
     <span class="demo-toggle-dot"></span>
     <span class="demo-toggle-label">Demo flags:</span>
@@ -1445,7 +1547,7 @@
   <div class="brand">
     <div class="brand-mark">C</div>
     <div>
-      <div class="brand-name">Cribs Command Center<span class="brand-sub">By Altri</span></div>
+      <div class="brand-name">Cribs Command Center</div>
     </div>
   </div>
   <div class="nav-search">
@@ -1461,7 +1563,7 @@
       <div class="nav-avatar">MF</div>
       <div>
         <div class="nav-user-name">Mark Fordham</div>
-        <div class="nav-user-role">Head of Ops</div>
+        <div class="nav-user-role">Head of Construction</div>
       </div>
     </div>
   </div>
@@ -1490,6 +1592,9 @@
   <div class="lens-tab" data-lens="guardrails">
     <span class="lens-tab-num">07</span> Margin Guardrails
   </div>
+  <div class="lens-tab" data-lens="workbench">
+    <span class="lens-tab-num">08</span> PM Workbench
+  </div>
 </div>
 
 <!-- ============ LENS 1 — COMMAND CENTER ============ -->
@@ -1500,8 +1605,8 @@
       <div class="page-eyebrow-line"></div>
       <div class="page-eyebrow-text">Wednesday · May 27, 2026 · 8:14 AM</div>
     </div>
-    <h1 class="page-title">Good morning, Mark.</h1>
-    <div class="page-subtitle">88 active properties · $4.5M analyzed across 20 projects with margin data · <span style="background:rgba(184,92,92,0.05); padding:1px 4px; border-radius:2px;">9 need attention today <span class="demo-flag">demo</span></span>.</div>
+    <h1 class="page-title">Good morning.</h1>
+    <div class="page-subtitle">88 active construction projects · $4.5M analyzed across 20 margin calculators · <span style="background:rgba(184,92,92,0.05); padding:1px 4px; border-radius:2px;">9 need attention today <span class="demo-flag">demo</span></span>.</div>
   </div>
 
   <!-- Quarterly Goals -->
@@ -1610,7 +1715,7 @@
         <div>
           <div class="dq-title">Your Decision Queue</div>
         </div>
-        <div class="dq-subtitle">Air Traffic Control · What needs Mark today</div>
+        <div class="dq-subtitle">Air Traffic Control · What needs your attention today</div>
       </div>
       <div class="dq-count">7 pending</div>
     </div>
@@ -1625,7 +1730,7 @@
             1431 Waterfront Dr — STR permit application cancelled (90-day allowance exceeded)
           </div>
           <div class="dq-content-context">
-            <b>Robin</b> reported in #waterfront-dr-1431 · Surfaced from 2,000+ messages · No follow-up logged in 14 days <span class="demo-flag">demo</span>
+            Permitting team flagged this in Slack 14 days ago. No follow-up logged <span class="demo-flag">demo</span>
           </div>
           <div class="dq-impact">Township compliance at risk · <b>Launch delay possible</b></div>
         </div>
@@ -1645,7 +1750,7 @@
             $1,250 disputed invoice on 1431 Waterfront — bathroom fixtures already replaced?
           </div>
           <div class="dq-content-context">
-            <b>Austin</b> flagged in Slack · Invoice still active in Buildertrend · Decision needed before Friday payment run <span class="demo-flag">demo</span>
+            Flagged in Slack by sales coordinator · Invoice still active in Buildertrend · Decision needed before Friday payment run <span class="demo-flag">demo</span>
           </div>
           <div class="dq-impact">Potential <b>$1,250 margin recovery</b> if dispute valid</div>
         </div>
@@ -1675,8 +1780,8 @@
         </div>
       </div>
 
-      <!-- Decision 4: Scope change approval (from Slack) -->
-      <div class="dq-item demo-block">
+      <!-- Decision 4: Scope change approval - SHOWCASE INLINE SLACK DRAFT -->
+      <div class="dq-item demo-block" style="grid-template-columns: 60px 1fr auto auto;">
         <div class="dq-priority"><div class="dq-priority-badge high">High</div></div>
         <div class="dq-content">
           <div class="dq-content-title">
@@ -1684,14 +1789,34 @@
             Approve scope change on 1431 Waterfront — boxing-themed wallpaper for Bedroom 5
           </div>
           <div class="dq-content-context">
-            <b>Austin</b> requested wallpaper instead of proposed mural to manage costs · Awaiting Mark's sign-off <span class="demo-flag">demo</span>
+            Sales side requested wallpaper instead of proposed mural to manage costs <span class="demo-flag">demo</span>
           </div>
           <div class="dq-impact good">Cost savings <b>~$2,400</b> vs. mural</div>
+
+          <!-- INLINE SLACK DRAFT — the killer action -->
+          <div class="dq-draft">
+            <div class="dq-draft-head">
+              <div class="dq-draft-icon">#</div>
+              <div class="dq-draft-label">Reply in Slack ·</div>
+              <div class="dq-draft-channel">#waterfront-dr-1431</div>
+              <div style="margin-left:auto; font-size:10px; color:var(--muted);">AI-drafted · edit before sending</div>
+            </div>
+            <textarea class="dq-draft-textarea">Approved on the wallpaper swap for Bedroom 5. Confirmed $2.4K savings vs. mural. Moving this through procurement today.</textarea>
+            <div class="dq-draft-actions">
+              <div class="dq-draft-tone">
+                <span class="dq-tone-chip active">Direct</span>
+                <span class="dq-tone-chip">Warm</span>
+                <span class="dq-tone-chip">Detailed</span>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <button class="capture-this">Capture This Decision</button>
+                <button class="dq-send-btn">Send to Slack →</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dq-actions">
-          <button class="dq-btn">View Details</button>
-          <button class="dq-btn primary">Approve</button>
-        </div>
+        <div></div>
+        <div></div>
       </div>
 
       <!-- Decision 5: PM rebalancing (REAL workload data) -->
@@ -1742,7 +1867,7 @@
             Cribs Fee deeply negative on 5 projects — structural pricing issue
           </div>
           <div class="dq-content-context">
-            Designed to "run at zero" but <b>98 Green Island at −36%</b>, <b>195 Hyland at −19%</b>, <b>355 Cohutta at −17%</b> · Worth team review with Steve & Mick
+            Designed to "run at zero" but <b>98 Green Island at −36%</b>, <b>195 Hyland at −19%</b>, <b>355 Cohutta at −17%</b> · Worth review with leadership + finance
           </div>
           <div class="dq-impact">Cost structure variance · <b>Process gap</b></div>
         </div>
@@ -1774,19 +1899,19 @@
         <div class="si-section-body">
           Team finalized orders for <b>Phase 1, Phase 2, and essentials</b>. Game room, outdoor bar, and boxing-themed bedroom locked in.
         </div>
-        <div class="si-people"><b>Mica</b> initiated · <b>Aya</b> & <b>Apple Pedrosa</b> handled procurement</div>
+        <div class="si-people">Design lead initiated · Procurement coordinated through internal team</div>
         <div class="si-decision">
           <div class="si-decision-label">Key Decision Surfaced</div>
-          Austin requested boxing wallpaper instead of mural for Bedroom 5 to manage costs · <b>Saved ~$2,400</b>
+          Sales side requested boxing wallpaper instead of mural for Bedroom 5 to manage costs · <b>Saved ~$2,400</b>
         </div>
       </div>
 
       <div class="si-section">
         <div class="si-section-head">Construction & Permitting</div>
         <div class="si-section-body">
-          Garage conversion, hot tub, sports court installed. Robin navigated township permitting for STR compliance.
+          Garage conversion, hot tub, sports court installed. Permitting team navigated township for STR compliance.
         </div>
-        <div class="si-people"><b>Lauren Worms</b> ran PM · <b>Robin</b> on permits</div>
+        <div class="si-people"><b>Lauren</b> ran PM · Permitting team handled township compliance</div>
         <div class="si-decision" style="border-color: #F2A28C;">
           <div class="si-decision-label" style="color: #F2A28C;">⚠ Risk Surfaced</div>
           STR application <b>cancelled</b> — 90-day allowance exceeded · Township compliance issue
@@ -1798,10 +1923,10 @@
         <div class="si-section-body">
           Sports court and hot tub inspections passed April 2026. Photography completed April 21, 2026.
         </div>
-        <div class="si-people"><b>Austin</b> directed staging · Lifestyle shots requested in game room, theater, outdoors</div>
+        <div class="si-people">Sales side directed staging · Photography for marketing handoff</div>
         <div class="si-decision">
           <div class="si-decision-label">Open Item</div>
-          $1,250 bathroom fixtures invoice disputed — Austin questioned whether already replaced
+          $1,250 bathroom fixtures invoice disputed — sales side questioned whether already replaced
         </div>
       </div>
     </div>
@@ -1812,44 +1937,42 @@
     <div class="ai-panel">
       <div class="ai-head">
         <div class="ai-dot"></div>
-        <div class="ai-title">For Your Attention</div>
+        <div class="ai-title">Team Knowledge Chat</div>
       </div>
-      <div class="ai-subtitle">AI-Surfaced · Pattern-Based</div>
+      <div class="ai-subtitle">Ask the Command Center · Anything</div>
 
+      <div style="background:var(--forest-dark); border-radius:5px; padding:10px 12px; margin-bottom:14px; border:1px solid rgba(212,188,142,0.2);">
+        <input type="text" placeholder="Ask anything about your projects..."
+          style="width:100%; background:transparent; border:none; color:var(--cream); font-family:inherit; font-size:13px; outline:none;"
+          onkeydown="if(event.key==='Enter') alert('Chat coming soon — would query your data + captured decisions');"/>
+      </div>
+
+      <!-- Example threads -->
       <div class="ai-item">
-        <div class="ai-item-priority urgent">Portfolio Pattern</div>
-        <div class="ai-item-text"><b>Design margin crisis</b>: 18 of 20 analyzed projects below 23% target. Mean is 14.8%. Single biggest margin opportunity.</div>
-        <button class="ai-action" onclick="switchLens('portfolio')">See Portfolio Lens</button>
-      </div>
-
-      <div class="ai-item">
-        <div class="ai-item-priority urgent">Outlier · Worst</div>
-        <div class="ai-item-text"><b>110 Old Ridge Rd</b> at 13.56% blended — worst project. Design at 7.9%, Cribs Fee at −11.5%.</div>
-        <button class="ai-action">Diagnose</button>
-      </div>
-
-      <div class="ai-item">
-        <div class="ai-item-priority insight">Outlier · Best</div>
-        <div class="ai-item-text"><b>366 Hyland Dr</b> at 25.54% — only project hitting target. Design hit 23.08%. Pattern worth replicating.</div>
-        <button class="ai-action">Study Pattern</button>
-      </div>
-
-      <div class="ai-item demo-block">
-        <div class="ai-item-priority urgent">Workload <span class="demo-flag">demo</span></div>
-        <div class="ai-item-text">PM imbalance: <b>Matt at 17, Allie at 1</b>. Risk on Matt's portfolio, capacity on Allie's.</div>
-        <button class="ai-action" onclick="switchLens('pm')">Open PM Lens</button>
+        <div class="ai-item-priority insight">Recent Question</div>
+        <div class="ai-item-text" style="margin-bottom:6px;"><b>Lauren asked:</b> "What markup should I use on Pocono construction over 2,200 sqft?"</div>
+        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
+          <b style="color:var(--white);">From your Knowledge Library:</b> 32-38% range. Last 3 similar projects ran 60%+ over initial estimate — pad 15%.
+        </div>
+        <button class="ai-action" style="margin-top:8px;">View Thread</button>
       </div>
 
       <div class="ai-item">
-        <div class="ai-item-priority insight">Naming Pattern</div>
-        <div class="ai-item-text">3 different Hyland Dr projects · 366 (winner), 363, 195 (losing). Same street, very different margins.</div>
-        <button class="ai-action">Compare</button>
+        <div class="ai-item-priority insight">Recent Question</div>
+        <div class="ai-item-text" style="margin-bottom:6px;"><b>Matt asked:</b> "Which electrical sub should I use in Bradenton?"</div>
+        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
+          <b style="color:var(--white);">Mountain Electric Co</b> · −8% vs baseline, 94% on-time. Available now.
+        </div>
+        <button class="ai-action" style="margin-top:8px;">View Thread</button>
       </div>
 
       <div class="ai-item">
-        <div class="ai-item-priority urgent">Cribs Fee Issue</div>
-        <div class="ai-item-text"><b>5 projects deeply negative on Cribs Fee</b>. Worst: 98 Green Island −36%. Structural pricing issue.</div>
-        <button class="ai-action">Investigate</button>
+        <div class="ai-item-priority">Suggested Questions</div>
+        <div class="ai-item-text" style="font-size:11px;">
+          • What's our avg plumbing cost in Pocono?<br>
+          • Which projects had design margin under 15%?<br>
+          • What did we decide on the 110 Old Ridge change order?
+        </div>
       </div>
 
       <!-- ROI bar -->
@@ -1937,7 +2060,7 @@
             <div><div class="meta-cell-label">SF Current</div><div class="meta-cell-value">1,485</div></div>
           </div>
           <div class="project-card-foot">
-            <div class="project-pm"><div class="pm-avatar">D</div><span>David (Acq)</span></div>
+            <div class="project-pm"><div class="pm-avatar">D</div><span>Search Team</span></div>
             <div class="project-next demo-block">Next: <b>Handoff to Ops</b> <span class="demo-flag">demo</span></div>
           </div>
         </div>
@@ -2223,7 +2346,7 @@
   <div class="page-head">
     <div class="page-eyebrow">
       <div class="page-eyebrow-line"></div>
-      <div class="page-eyebrow-text">Strategic View · For Josh & Sief</div>
+      <div class="page-eyebrow-text">Strategic View · For Leadership</div>
     </div>
     <h1 class="page-title">Where is margin actually bleeding?</h1>
     <div class="page-subtitle">Cross-portfolio analysis of 20 projects with margin calculator data · $4.54M aggregate revenue.</div>
@@ -2237,6 +2360,9 @@
         <h2 class="ph-title">It's not Construction. It's Design.</h2>
         <div class="ph-sub">
           Construction margin runs at <b style="color:var(--green);">30.3%</b> — beating the 27% target across <b style="color:var(--green);">19 of 20</b> projects. But Design margin runs at just <b>14.8%</b> — falling below the 23% target on <b>18 of 20</b> projects. That 8.2 percentage point gap on Design is the single largest margin opportunity in the portfolio.
+        </div>
+        <div style="margin-top:12px;">
+          <button class="capture-this">Capture This as a Rule</button>
         </div>
       </div>
       <div class="ph-bignum">
@@ -2544,7 +2670,7 @@
       <div class="page-eyebrow-text">Strategic Procurement · By Market & Trade</div>
     </div>
     <h1 class="page-title">Which subs make you money. Which ones cost you.</h1>
-    <div class="page-subtitle">Sub performance by market, cost, and reliability. The foundation for Steve's GC-insourcing play.</div>
+    <div class="page-subtitle">Sub performance by market, cost, and reliability. The foundation for the GC-insourcing strategic initiative.</div>
   </div>
 
   <div class="demo-section-banner" style="margin-bottom:16px;">
@@ -2554,13 +2680,13 @@
   <!-- The insourcing strategy callout -->
   <div class="insource-callout">
     <div class="insource-text">
-      <div class="insource-eyebrow">Steve's Strategy · GC Insourcing</div>
+      <div class="insource-eyebrow">Strategic Initiative · GC Insourcing</div>
       <div class="insource-title">Stop paying other GCs 20-30% you could capture.</div>
       <div class="insource-sub">Today, Cribs hires GCs in other markets who hire the electricians, plumbers, roofers. Establish per-market cost baselines by trade, then go direct. Same markup to client, captured margin to Cribs.</div>
     </div>
     <div class="insource-bignum">
       <div class="insource-bignum-val">~50%</div>
-      <div class="insource-bignum-label">Potential EBITDA<br>increase <span class="demo-flag" style="background:rgba(255,255,255,0.15);color:var(--gold-light);border-color:rgba(255,255,255,0.2);">Steve's est</span></div>
+      <div class="insource-bignum-label">Potential EBITDA<br>increase <span class="demo-flag" style="background:rgba(255,255,255,0.15);color:var(--gold-light);border-color:rgba(255,255,255,0.2);">leadership est</span></div>
     </div>
   </div>
 
@@ -3036,7 +3162,7 @@
           <span class="pipeline-tag tv">TV Pipeline</span>
         </div>
         <div class="pv-title">6105 7th Avenue Dr W</div>
-        <div class="pv-meta">Bradenton, FL 34209 · Client: Katelyn Schneider · Acquisition: David (Search) · Carson's Underwriting</div>
+        <div class="pv-meta">Bradenton, FL 34209 · Client: Katelyn Schneider · Acquisition: Search team · Search Lead's Underwriting</div>
       </div>
       <div class="pv-actions">
         <button class="pv-btn">Open Drive Folder</button>
@@ -3094,19 +3220,19 @@
             </div>
             <div class="cc-item">
               <div class="cc-label">Deal Source</div>
-              <div class="cc-val"><b>STR Search</b> · Acquisition: David · Underwriting by Carson</div>
+              <div class="cc-val"><b>STR Search</b> · Acquisition: Search Team · Underwriting by Search Lead</div>
             </div>
           </div>
         </div>
 
-        <!-- The TRIGGER - this is the gold from Sief's vision -->
+        <!-- Client triggers from intake form -->
         <div class="cc-trigger">
           <div class="cc-trigger-label">⚠ Client Vibes / Triggers · From Sales Team</div>
           <div class="cc-trigger-text">"Katelyn is an Accountant and will take her time to go through every line, every detail. She is a numbers gal and wants to stay in budget. We are at the top of her budget. She wants the design to appeal to families but doesn't want it to feel childish."</div>
         </div>
 
         <div class="cc-trigger" style="margin-top:8px; border-color:var(--tv);">
-          <div class="cc-trigger-label" style="color:var(--tv);">Search Game Plan · From Carson</div>
+          <div class="cc-trigger-label" style="color:var(--tv);">Search Game Plan · From Acquisition Team</div>
           <div class="cc-trigger-text">"Straightforward FL gameplan. There is a 5ft easement off the back of the property that we should be careful with for backyard amenities."</div>
         </div>
       </div>
@@ -3196,7 +3322,7 @@
         <div class="comm-item demo-row">
           <div class="comm-time">Yesterday</div>
           <div>
-            <div class="comm-meta"><span class="comm-source fathom">Fathom</span><span class="comm-from">Sales Discovery Call · David & Katelyn</span></div>
+            <div class="comm-meta"><span class="comm-source fathom">Fathom</span><span class="comm-from">Sales Discovery Call</span></div>
             <div class="comm-text">"Katelyn is detail-oriented, wants to review every line. First-time STR. Budget is tight but firm. Family-appeal aesthetic without feeling childish. Pool restoration discussed."</div>
           </div>
         </div>
@@ -3204,7 +3330,7 @@
         <div class="comm-item demo-row">
           <div class="comm-time">2d ago</div>
           <div>
-            <div class="comm-meta"><span class="comm-source email">Email</span><span class="comm-from">Carson → David</span></div>
+            <div class="comm-meta"><span class="comm-source email">Email</span><span class="comm-from">Search lead → Acquisition team</span></div>
             <div class="comm-text">"Straightforward FL gameplan. Watch the 5ft easement off the back of property for backyard amenities scope."</div>
           </div>
         </div>
@@ -3235,7 +3361,7 @@
         <div class="sub-row"><span class="sub-name">🗺 Property Survey</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
         <div class="sub-row"><span class="sub-name">📑 KOC (Kickoff Call Doc)</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
         <div class="sub-row"><span class="sub-name">🎨 Teaser Deck</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
-        <div class="sub-row"><span class="sub-name">📈 Carson's Underwriting</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
+        <div class="sub-row"><span class="sub-name">📈 Search Lead's Underwriting</span><span style="font-size:10px;color:var(--gold-dark);">View →</span></div>
       </div>
 
       <!-- Sales Required Items Checklist -->
@@ -3287,13 +3413,13 @@
       <div class="page-eyebrow-text">Real-Time Margin Protection</div>
     </div>
     <h1 class="page-title">Stop the bleed before the PO is cut.</h1>
-    <div class="page-subtitle">Mark asked for this directly: "If a PO is about to put us over, I don't want that PO to be able to be cut."</div>
+    <div class="page-subtitle">Directly from leadership discovery: "If a PO is about to put us over, I don't want that PO to be able to be cut."</div>
   </div>
 
   <!-- The hero number from the transcript -->
   <div class="guardrail-hero">
     <div>
-      <div class="ph-eyebrow">The Problem · In Sief's Words</div>
+      <div class="ph-eyebrow">The Problem · Quantified</div>
       <h2 class="ph-title" style="margin-bottom:8px;">$4,000 lost per project × 250 projects = $1M pure EBITDA</h2>
       <div class="ph-sub" style="color:var(--ink);">Cribs runs ~$3,800 over budget on the average project today, all caught manually after the fact. At scale, that's <b>$1M of pure profit</b> gone. Guardrails catch each overrun <b>before</b> the PO is cut, not after.</div>
     </div>
@@ -3353,7 +3479,8 @@
     <div class="po-gate-actions">
       <button class="dq-btn">Compare Subs</button>
       <button class="dq-btn">Override</button>
-      <button class="dq-btn primary" style="background:var(--red); border-color:var(--red);">Block PO</button>
+      <button class="capture-this">Capture This Decision</button>
+      <button class="dq-btn primary" style="background:var(--red); border-color:var(--red); padding: 7px 16px; font-size:12px;">⛔ Block PO</button>
     </div>
   </div>
 
@@ -3419,6 +3546,244 @@
     <div class="po-gate-actions">
       <button class="dq-btn">View Scope</button>
       <button class="dq-btn primary">Request SF from PM</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 8 — PM WORKBENCH (Lauren's view as example) ============ -->
+<div class="lens" id="lens-workbench">
+<div class="container">
+  <div class="page-head" style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px;">
+    <div>
+      <div class="page-eyebrow">
+        <div class="page-eyebrow-line"></div>
+        <div class="page-eyebrow-text">Project Manager View · The Execution Cockpit</div>
+      </div>
+      <h1 class="page-title">Lauren's Workbench.</h1>
+      <div class="page-subtitle">What a PM sees when they log in · 14 projects · their world, not the leadership view.</div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <span class="filter-chip">Switch PM: Lauren ▾</span>
+    </div>
+  </div>
+
+  <!-- Lauren's personal KPIs -->
+  <div class="kpi-strip" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="kpi">
+      <div class="kpi-label">My Active Projects</div>
+      <div class="kpi-value">14</div>
+      <div class="kpi-delta neutral">2 in critical phase</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">My Avg Margin <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--yellow);">22.3<span class="unit">%</span></div>
+      <div class="kpi-delta neutral">Below team aim 25%</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">My Date Gates <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--green);">11<span class="unit">/14</span></div>
+      <div class="kpi-delta good">On track</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">My POs Pending <span class="demo-flag">demo</span></div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-delta neutral">3 awaiting review</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">My Clients Happy <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--green);">12<span class="unit">/14</span></div>
+      <div class="kpi-delta good">85% positive</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- Knowledge Library + Ask the Command Center -->
+    <div class="ai-panel">
+      <div class="ai-head">
+        <div class="ai-dot"></div>
+        <div class="ai-title">Knowledge Library</div>
+      </div>
+      <div class="ai-subtitle">Captured Decisions · Ask Anything</div>
+
+      <div style="background:var(--forest-dark); border-radius:5px; padding:10px 12px; margin-bottom:14px; border:1px solid rgba(212,188,142,0.2);">
+        <input type="text" placeholder="Ask anything... e.g. 'What markup for Pocono?'"
+          style="width:100%; background:transparent; border:none; color:var(--cream); font-family:inherit; font-size:12.5px; outline:none;"/>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority insight">My Recent Question</div>
+        <div class="ai-item-text" style="margin-bottom:6px;">"What markup should I use on Pocono construction over 2,200 sqft?"</div>
+        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
+          <b style="color:var(--white);">From captured rules:</b> 32-38% range. Pad construction 15% on Pocono &gt;2,200 sqft based on 3 past projects.
+        </div>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority insight">Sub Guidance</div>
+        <div class="ai-item-text" style="margin-bottom:6px;">For your Pocono project, top-3 preferred subs by trade:</div>
+        <div style="font-size:11px; color:var(--gold-light); line-height:1.6;">
+          • Electrical: <b style="color:var(--white);">Mountain Electric Co</b> (preferred)<br>
+          • Plumbing: <b style="color:var(--white);">Apex Plumbing</b> (preferred)<br>
+          • Avoid: <b style="color:#F2A28C;">Summit Electrical</b> (+34% over baseline)
+        </div>
+      </div>
+
+      <div class="ai-item">
+        <div class="ai-item-priority">Quick Asks</div>
+        <div class="ai-item-text" style="font-size:11.5px; line-height:1.6;">
+          • "Show me a recent successful scope for a similar property"<br>
+          • "What did we decide on change orders for repeat clients?"<br>
+          • "Best photographer for Bradenton market?"
+        </div>
+      </div>
+
+      <div class="roi-bar">
+        <div class="roi-label">My Wins This Quarter</div>
+        <div class="roi-stat demo-block">
+          <div class="roi-stat-value">3</div>
+          <div class="roi-stat-text">Projects shipped on or ahead of date gates <span class="demo-flag" style="background:rgba(255,255,255,0.15); color:var(--gold-light); border-color:rgba(255,255,255,0.2);">demo</span></div>
+        </div>
+        <div class="roi-stat demo-block">
+          <div class="roi-stat-value">$48K</div>
+          <div class="roi-stat-text">Margin protected via early flags</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lauren's Today + Her projects -->
+    <div>
+      <!-- Lauren's daily action queue -->
+      <div class="decision-queue" style="margin-bottom:18px;">
+        <div class="dq-head">
+          <div class="dq-head-left">
+            <div class="dq-icon">!</div>
+            <div>
+              <div class="dq-title">My Day · Action Items</div>
+            </div>
+            <div class="dq-subtitle">From scope reviews, PO requests, client emails</div>
+          </div>
+          <div class="dq-count">4 today</div>
+        </div>
+        <div class="dq-body">
+          <div class="dq-item demo-block">
+            <div class="dq-priority"><div class="dq-priority-badge urgent">Today</div></div>
+            <div class="dq-content">
+              <div class="dq-content-title">
+                <span class="dq-source-tag pattern">Scope Check</span>
+                10053 W Bay St — Backyard turf missing square footage
+              </div>
+              <div class="dq-content-context">
+                System flagged this before sending to subs. Add SF or sub estimates will be guesses. <span class="demo-flag">demo</span>
+              </div>
+              <div class="dq-impact">Sub estimate accuracy at risk</div>
+            </div>
+            <div class="dq-actions">
+              <button class="dq-btn">Open Scope</button>
+              <button class="dq-btn primary">Fix Now</button>
+            </div>
+          </div>
+
+          <div class="dq-item demo-block">
+            <div class="dq-priority"><div class="dq-priority-badge high">High</div></div>
+            <div class="dq-content">
+              <div class="dq-content-title">
+                <span class="dq-source-tag calc">Margin Watch</span>
+                190 Robyn Ln — PO #0048 would push margin below 20%
+              </div>
+              <div class="dq-content-context">
+                Summit Electrical bid is 34% over baseline. Mountain Electric Co recommended instead. <span class="demo-flag">demo</span>
+              </div>
+              <div class="dq-impact">Recommended action: switch sub</div>
+            </div>
+            <div class="dq-actions">
+              <button class="dq-btn">Compare Subs</button>
+              <button class="dq-btn primary">Switch to Mountain Electric</button>
+            </div>
+          </div>
+
+          <div class="dq-item demo-block">
+            <div class="dq-priority"><div class="dq-priority-badge med">Reply</div></div>
+            <div class="dq-content">
+              <div class="dq-content-title">
+                <span class="dq-source-tag email">Email</span>
+                Client at 7753 132nd Way asked about timeline update
+              </div>
+              <div class="dq-content-context">
+                Last response 5 days ago. Project is on track. <span class="demo-flag">demo</span>
+              </div>
+              <div class="dq-impact">Quick reply recommended</div>
+            </div>
+            <div class="dq-actions">
+              <button class="dq-btn">View Thread</button>
+              <button class="dq-btn primary">Draft Reply</button>
+            </div>
+          </div>
+
+          <div class="dq-item demo-block">
+            <div class="dq-priority"><div class="dq-priority-badge low">FYI</div></div>
+            <div class="dq-content">
+              <div class="dq-content-title">
+                <span class="dq-source-tag pattern">Pattern</span>
+                Knowledge Library updated — new rule from Mark
+              </div>
+              <div class="dq-content-context">
+                "Pocono properties over 2,200 sqft: pad construction estimate by 15%" — applies to 2 of your active projects. <span class="demo-flag">demo</span>
+              </div>
+              <div class="dq-impact">Worth reviewing your estimates</div>
+            </div>
+            <div class="dq-actions">
+              <button class="dq-btn">View Rule</button>
+              <button class="dq-btn primary">Apply to My Projects</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-head">
+        <h3>My 14 Active Projects</h3>
+        <div class="grid-head-meta">Sorted by stage urgency</div>
+      </div>
+
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">190 Robyn Ln</div>
+              <div class="project-market">Pocono Lake, PA · Techvestor</div>
+            </div>
+            <span class="status-pill red">Critical</span>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin red">+115%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin yellow">+31%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">My Date Gate</div><div class="meta-cell-value yellow">Day 9 / 10</div></div>
+            <div><div class="meta-cell-label">PO Pending</div><div class="meta-cell-value red">1</div></div>
+            <div><div class="meta-cell-label">Last Client Msg</div><div class="meta-cell-value">2d ago</div></div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-head">
+            <div class="project-name-block">
+              <div class="project-name">10053 W Bay St</div>
+              <div class="project-market">Seminole, FL · Techvestor</div>
+            </div>
+            <span class="status-pill yellow">Scope Gap</span>
+          </div>
+          <div class="dual-jobs">
+            <div class="dual-job"><div class="dual-job-label">Construction</div><div class="dual-job-margin green">16.2%</div></div>
+            <div class="dual-job"><div class="dual-job-label">Design</div><div class="dual-job-margin green">22.1%</div></div>
+          </div>
+          <div class="project-meta">
+            <div><div class="meta-cell-label">My Date Gate</div><div class="meta-cell-value green">Day 4 / 5</div></div>
+            <div><div class="meta-cell-label">PO Pending</div><div class="meta-cell-value">0</div></div>
+            <div><div class="meta-cell-label">Last Client Msg</div><div class="meta-cell-value">Today</div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
