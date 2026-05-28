@@ -143,17 +143,19 @@
     border-bottom: 1px solid var(--forest-deep);
   }
   .lens-tab {
-    padding: 14px 22px;
+    padding: 14px 16px;
     color: rgba(245, 239, 224, 0.55);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all 0.15s;
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 7px;
+    white-space: nowrap;
   }
+  .lens-switcher { overflow-x: auto; }
   .lens-tab:hover { color: var(--cream); }
   .lens-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
   .lens-tab-num { font-family: 'Fraunces', serif; font-size: 14px; opacity: 0.7; }
@@ -1195,6 +1197,219 @@
     margin-bottom: 3px;
   }
 
+  /* ====== DATE GATES (Mark's 3 dates) ====== */
+  .date-gates {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .date-gate {
+    background: var(--cream-soft);
+    border-radius: 4px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--green);
+    position: relative;
+  }
+  .date-gate.red { border-left-color: var(--red); background: var(--red-light); }
+  .date-gate.yellow { border-left-color: var(--yellow); background: var(--yellow-light); }
+  .date-gate-label {
+    font-size: 9px; color: var(--muted); letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 3px;
+  }
+  .date-gate-target { font-size: 10px; color: var(--muted); }
+  .date-gate-val {
+    font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600;
+    color: var(--green); line-height: 1; margin: 3px 0;
+  }
+  .date-gate.red .date-gate-val { color: var(--red); }
+  .date-gate.yellow .date-gate-val { color: var(--yellow); }
+
+  /* ====== CLIENT SENTIMENT RADAR ====== */
+  .sentiment-radar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px;
+  }
+  .sentiment-col-head {
+    font-family: 'Fraunces', serif; font-size: 16px; color: var(--forest);
+    font-weight: 600; margin-bottom: 12px; display: flex;
+    align-items: center; justify-content: space-between;
+  }
+  .sentiment-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px; margin-bottom: 10px;
+    cursor: pointer; transition: all 0.15s;
+    border-left: 4px solid var(--green);
+  }
+  .sentiment-card:hover { box-shadow: var(--shadow-md); }
+  .sentiment-card.risk { border-left-color: var(--red); }
+  .sentiment-card.watch { border-left-color: var(--yellow); }
+  .sentiment-card.happy { border-left-color: var(--green); }
+  .sentiment-card-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .sentiment-client {
+    font-family: 'Fraunces', serif; font-size: 15px;
+    color: var(--forest); font-weight: 600;
+  }
+  .sentiment-prop { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  .sentiment-score {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 10px;
+  }
+  .sentiment-score.risk { background: var(--red-light); color: var(--red); }
+  .sentiment-score.watch { background: var(--yellow-light); color: var(--yellow); }
+  .sentiment-score.happy { background: var(--green-light); color: var(--green); }
+  .sentiment-signal {
+    font-size: 12px; color: var(--ink); line-height: 1.45;
+    background: var(--cream-soft); padding: 8px 10px; border-radius: 3px;
+    margin-top: 6px;
+  }
+  .sentiment-signal b { color: var(--forest); }
+  .sentiment-quote {
+    font-size: 11.5px; color: var(--muted); font-style: italic;
+    margin-top: 6px; padding-left: 10px; border-left: 2px solid var(--border);
+  }
+  .sentiment-action-row {
+    display: flex; gap: 6px; margin-top: 10px;
+  }
+
+  /* ====== VENDOR INTELLIGENCE ====== */
+  .vendor-market-tabs {
+    display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .vendor-summary {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 22px;
+  }
+  .vendor-trade-section { margin-bottom: 24px; }
+  .vendor-trade-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .vendor-trade-title {
+    font-family: 'Fraunces', serif; font-size: 18px;
+    color: var(--forest); font-weight: 600;
+  }
+  .vendor-trade-baseline {
+    font-size: 11px; color: var(--muted);
+    background: var(--cream-soft); padding: 3px 10px; border-radius: 10px;
+  }
+  .vendor-trade-baseline b { color: var(--forest); }
+  .vendor-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .vendor-table th {
+    text-align: left; font-size: 10px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 11px 12px; background: var(--cream-soft);
+    border-bottom: 1px solid var(--border);
+  }
+  .vendor-table th.num { text-align: right; }
+  .vendor-table td {
+    padding: 11px 12px; font-size: 12.5px; color: var(--ink);
+    border-bottom: 1px solid var(--border);
+  }
+  .vendor-table td.num { text-align: right; font-family: 'Fraunces', serif; font-weight: 600; }
+  .vendor-table tr:last-child td { border-bottom: none; }
+  .vendor-table tr:hover { background: var(--cream-soft); }
+  .vendor-table tr.preferred { background: rgba(220, 229, 212, 0.25); }
+  .vendor-table tr.avoid { background: rgba(232, 211, 209, 0.25); }
+  .vendor-name { font-family: 'Fraunces', serif; font-weight: 600; color: var(--forest); }
+  .vendor-badge {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 8px;
+    margin-left: 6px;
+  }
+  .vendor-badge.preferred { background: var(--green-light); color: var(--green); }
+  .vendor-badge.avoid { background: var(--red-light); color: var(--red); }
+  .vendor-badge.new { background: var(--tv-light); color: var(--tv); }
+  .vendor-rating { display: inline-flex; gap: 1px; }
+  .vendor-availability {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 8px;
+  }
+  .vendor-availability.open { background: var(--green-light); color: var(--green); }
+  .vendor-availability.busy { background: var(--yellow-light); color: var(--yellow); }
+  .vendor-availability.full { background: var(--red-light); color: var(--red); }
+
+  .insource-callout {
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 22px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .insource-text { }
+  .insource-eyebrow {
+    font-size: 10px; color: var(--gold); letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 6px;
+  }
+  .insource-title {
+    font-family: 'Fraunces', serif; font-size: 20px; color: var(--cream);
+    font-weight: 600; margin-bottom: 6px; line-height: 1.2;
+  }
+  .insource-sub { font-size: 13px; color: var(--gold-light); line-height: 1.5; }
+  .insource-bignum { text-align: right; }
+  .insource-bignum-val {
+    font-family: 'Fraunces', serif; font-size: 42px; color: var(--gold);
+    font-weight: 700; line-height: 1;
+  }
+  .insource-bignum-label {
+    font-size: 10px; color: var(--gold-light); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 600; margin-top: 6px;
+  }
+
+  /* ====== MARGIN GUARDRAILS ====== */
+  .guardrail-hero {
+    background: var(--white); border: 2px solid var(--forest);
+    border-radius: 6px; padding: 22px; margin-bottom: 18px;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+  }
+  .guardrail-hero-num {
+    font-family: 'Fraunces', serif; font-size: 48px; color: var(--red);
+    font-weight: 700; line-height: 1;
+  }
+  .guardrail-hero-label {
+    font-size: 11px; color: var(--muted); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 600; margin-top: 6px; text-align:right;
+  }
+  .po-gate {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px 18px; margin-bottom: 10px;
+    border-left: 4px solid var(--yellow);
+  }
+  .po-gate.block { border-left-color: var(--red); }
+  .po-gate.ok { border-left-color: var(--green); }
+  .po-gate-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+  }
+  .po-gate-title {
+    font-size: 14px; color: var(--forest); font-weight: 600; margin-bottom: 4px;
+  }
+  .po-gate-detail { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+  .po-gate-detail b { color: var(--ink); }
+  .po-impact {
+    text-align: right; flex-shrink: 0; min-width: 140px;
+  }
+  .po-impact-bar {
+    display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+    margin-bottom: 4px;
+  }
+  .po-margin-before { font-size: 12px; color: var(--muted); }
+  .po-margin-after {
+    font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+  }
+  .po-margin-after.red { color: var(--red); }
+  .po-margin-after.green { color: var(--green); }
+  .po-gate-actions { display: flex; gap: 6px; margin-top: 12px; justify-content: flex-end; }
+
   @media (max-width: 1300px) {
     .two-col { grid-template-columns: 1fr; }
     .ai-panel { position: static; }
@@ -1206,13 +1421,18 @@
     .ph-grid { grid-template-columns: 1fr; }
     .margin-breakdown { grid-template-columns: 1fr; }
     .mcp-grid { grid-template-columns: 1fr 1fr; }
+    .sentiment-radar { grid-template-columns: 1fr; }
+    .vendor-summary { grid-template-columns: 1fr 1fr; }
+    .insource-callout { grid-template-columns: 1fr; }
+    .guardrail-hero { grid-template-columns: 1fr; }
+    .date-gates { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body class="demo-on">
 
 <div class="mockup-banner">
-  <span>Vision Mockup V4 · Built on Real Margin Data · For Mark & Josh Kickoff</span>
+  <span>Vision Mockup V6 · Built on Real Data + Leadership Interview · For Mark & Josh</span>
   <span class="demo-toggle" id="demoToggle">
     <span class="demo-toggle-dot"></span>
     <span class="demo-toggle-label">Demo flags:</span>
@@ -1247,19 +1467,28 @@
   </div>
 </nav>
 
-<!-- LENS SWITCHER (NOW WITH 4 LENSES) -->
+<!-- LENS SWITCHER (7 LENSES) -->
 <div class="lens-switcher">
   <div class="lens-tab active" data-lens="command">
     <span class="lens-tab-num">01</span> Command Center
   </div>
+  <div class="lens-tab" data-lens="sentiment">
+    <span class="lens-tab-num">02</span> Client Sentiment
+  </div>
   <div class="lens-tab" data-lens="portfolio">
-    <span class="lens-tab-num">02</span> Portfolio Margin
+    <span class="lens-tab-num">03</span> Portfolio Margin
+  </div>
+  <div class="lens-tab" data-lens="vendor">
+    <span class="lens-tab-num">04</span> Vendor Intelligence
   </div>
   <div class="lens-tab" data-lens="pm">
-    <span class="lens-tab-num">03</span> Project Manager Lens
+    <span class="lens-tab-num">05</span> PM Lens
   </div>
   <div class="lens-tab" data-lens="project">
-    <span class="lens-tab-num">04</span> Project Lens
+    <span class="lens-tab-num">06</span> Project Lens
+  </div>
+  <div class="lens-tab" data-lens="guardrails">
+    <span class="lens-tab-num">07</span> Margin Guardrails
   </div>
 </div>
 
@@ -1826,7 +2055,169 @@
 </div>
 </div>
 
-<!-- ============ LENS 2 — PORTFOLIO MARGIN (NEW) ============ -->
+<!-- ============ LENS 2 — CLIENT SENTIMENT RADAR (NEW) ============ -->
+<div class="lens" id="lens-sentiment">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Client Health · From Email + Slack Sentiment</div>
+    </div>
+    <h1 class="page-title">Which clients need you, before they blow up.</h1>
+    <div class="page-subtitle">Automated sentiment from ~1,000 emails/week + project Slack channels. The scanning Mark does by hand, done for him.</div>
+  </div>
+
+  <div class="demo-section-banner" style="margin-bottom:16px;">
+    ⚠ Sentiment scores and signals on this lens are illustrative. Live version connects to Gmail + Slack APIs. Client names and properties are real.
+  </div>
+
+  <!-- KPI strip for sentiment -->
+  <div class="kpi-strip" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="kpi demo-block">
+      <div class="kpi-label">At-Risk Clients <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--red);">6</div>
+      <div class="kpi-delta bad">Need outreach today</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Watch List <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--yellow);">14</div>
+      <div class="kpi-delta neutral">Sentiment softening</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Healthy <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--green);">67</div>
+      <div class="kpi-delta good">76% of portfolio</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Emails Triaged <span class="demo-flag">demo</span></div>
+      <div class="kpi-value">1,043<span class="unit">/wk</span></div>
+      <div class="kpi-delta good">0 read manually</div>
+    </div>
+  </div>
+
+  <div class="sentiment-radar">
+    <!-- LEFT: Needs attention -->
+    <div>
+      <div class="sentiment-col-head">
+        <span>⚠ Needs Your Attention</span>
+        <span style="font-size:11px; color:var(--muted); font-weight:400;">Ranked by risk</span>
+      </div>
+
+      <div class="sentiment-card risk demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Joseph Fogel</div>
+            <div class="sentiment-prop">6 Margit Ridgeway + 2 more · 3 active properties</div>
+          </div>
+          <div class="sentiment-score risk">High Risk <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Multi-property risk.</b> Sentiment dropped across all 3 projects in past 10 days. Tone shifted from collaborative to terse. Last 3 emails unanswered by our team.
+        </div>
+        <div class="sentiment-quote">"I've asked twice now about the timeline on Margit Ridgeway and haven't heard back..."</div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View All 3 Projects</button>
+          <button class="dq-btn primary">Draft Check-In</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card risk demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Katelyn Schneider</div>
+            <div class="sentiment-prop">6105 7th Avenue Dr W · Bradenton, FL</div>
+          </div>
+          <div class="sentiment-score risk">High Risk <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Budget-sensitive + first-timer.</b> Intake flagged "at top of her budget" and "reviews every line." Any overage will trigger friction. Proactive cost transparency recommended.
+        </div>
+        <div class="sentiment-quote">From intake: "She is a numbers gal and wants to stay in budget."</div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn" onclick="switchLens('project')">Open Project</button>
+          <button class="dq-btn primary">Flag for PM</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card watch demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Direct Client · 110 Old Ridge</div>
+            <div class="sentiment-prop">Pocono Lake, PA</div>
+          </div>
+          <div class="sentiment-score watch">Watch <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Worst-margin project + cost questions.</b> Client asking about line items. Project at 13.6% blended. Cost scrutiny rising as design margin sits at 7.9%.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">Review Margins</button>
+          <button class="dq-btn primary">Prep Response</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Healthy / good news -->
+    <div>
+      <div class="sentiment-col-head">
+        <span>✓ Healthy Relationships</span>
+        <span style="font-size:11px; color:var(--muted); font-weight:400;">Repeat-client candidates</span>
+      </div>
+
+      <div class="sentiment-card happy demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Cathay Shins</div>
+            <div class="sentiment-prop">366 Hyland Dr · East Stroudsburg, PA</div>
+          </div>
+          <div class="sentiment-score happy">Happy <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Your best project + happiest client.</b> 25.5% blended margin, positive tone throughout. <b>Strong repeat-client / referral candidate.</b>
+        </div>
+        <div class="sentiment-quote">"This has been smoother than I expected, thank you team."</div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn primary">Flag for Referral Ask</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card happy demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Techvestor · 363 Oak Point</div>
+            <div class="sentiment-prop">Asheville, NC · Portfolio buyer</div>
+          </div>
+          <div class="sentiment-score happy">Happy <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Portfolio relationship, steady.</b> Techvestor pipeline. Solid 23.4% blended. Communication cadence healthy. Pipeline for more deals.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View Pipeline</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card happy demo-block">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">98 Green Island Road</div>
+            <div class="sentiment-prop">Largo, FL · Largest active project</div>
+          </div>
+          <div class="sentiment-score happy">Happy <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>$480K project, on good terms</b> despite Cribs Fee issue on our side. Client experience strong — the margin problem is internal, not relational.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 3 — PORTFOLIO MARGIN ============ -->
 <div class="lens" id="lens-portfolio">
 <div class="container">
   <div class="page-head">
@@ -2144,7 +2535,187 @@
 </div>
 </div>
 
-<!-- ============ LENS 3 — PM VIEW ============ -->
+<!-- ============ LENS 4 — VENDOR INTELLIGENCE (NEW) ============ -->
+<div class="lens" id="lens-vendor">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Strategic Procurement · By Market & Trade</div>
+    </div>
+    <h1 class="page-title">Which subs make you money. Which ones cost you.</h1>
+    <div class="page-subtitle">Sub performance by market, cost, and reliability. The foundation for Steve's GC-insourcing play.</div>
+  </div>
+
+  <div class="demo-section-banner" style="margin-bottom:16px;">
+    ⚠ Vendor data on this lens is illustrative. Live version ingests PO history from Buildertrend + QuickBooks. Superhost Labs LLC is a real vendor from your Buildertrend; others are examples.
+  </div>
+
+  <!-- The insourcing strategy callout -->
+  <div class="insource-callout">
+    <div class="insource-text">
+      <div class="insource-eyebrow">Steve's Strategy · GC Insourcing</div>
+      <div class="insource-title">Stop paying other GCs 20-30% you could capture.</div>
+      <div class="insource-sub">Today, Cribs hires GCs in other markets who hire the electricians, plumbers, roofers. Establish per-market cost baselines by trade, then go direct. Same markup to client, captured margin to Cribs.</div>
+    </div>
+    <div class="insource-bignum">
+      <div class="insource-bignum-val">~50%</div>
+      <div class="insource-bignum-label">Potential EBITDA<br>increase <span class="demo-flag" style="background:rgba(255,255,255,0.15);color:var(--gold-light);border-color:rgba(255,255,255,0.2);">Steve's est</span></div>
+    </div>
+  </div>
+
+  <!-- Market filter -->
+  <div class="vendor-market-tabs">
+    <span class="filter-label">Market:</span>
+    <span class="filter-chip active">Pocono, PA</span>
+    <span class="filter-chip">Scottsdale, AZ</span>
+    <span class="filter-chip">Seminole, FL</span>
+    <span class="filter-chip">Bradenton, FL</span>
+    <span class="filter-chip">Asheville, NC</span>
+    <span class="filter-chip">All Markets</span>
+  </div>
+
+  <!-- Market summary -->
+  <div class="vendor-summary">
+    <div class="kpi demo-block">
+      <div class="kpi-label">Active Subs · Pocono <span class="demo-flag">demo</span></div>
+      <div class="kpi-value">23</div>
+      <div class="kpi-delta neutral">Across 6 trades</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Preferred <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--green);">9</div>
+      <div class="kpi-delta good">Consistent margin</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Avoid List <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--red);">4</div>
+      <div class="kpi-delta bad">Margin killers</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Insource Ready <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--gold-dark);">3</div>
+      <div class="kpi-delta neutral">Trades w/ baseline</div>
+    </div>
+  </div>
+
+  <!-- Electrical trade -->
+  <div class="vendor-trade-section demo-block">
+    <div class="vendor-trade-head">
+      <div class="vendor-trade-title">Electrical</div>
+      <div class="vendor-trade-baseline">Market baseline: <b>$118/fixture installed</b> · 18 projects <span class="demo-flag">demo</span></div>
+    </div>
+    <table class="vendor-table">
+      <thead>
+        <tr>
+          <th>Vendor</th>
+          <th class="num">Avg Cost vs Baseline</th>
+          <th class="num">Est Accuracy</th>
+          <th class="num">On-Time</th>
+          <th>Availability</th>
+          <th class="num">Projects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="preferred">
+          <td><span class="vendor-name">Mountain Electric Co</span><span class="vendor-badge preferred">Preferred</span></td>
+          <td class="num green">−8%</td>
+          <td class="num green">96%</td>
+          <td class="num green">94%</td>
+          <td><span class="vendor-availability open">Open</span></td>
+          <td class="num">12</td>
+        </tr>
+        <tr>
+          <td><span class="vendor-name">Keystone Wiring</span></td>
+          <td class="num">+3%</td>
+          <td class="num yellow">82%</td>
+          <td class="num green">90%</td>
+          <td><span class="vendor-availability busy">Busy</span></td>
+          <td class="num">7</td>
+        </tr>
+        <tr class="avoid">
+          <td><span class="vendor-name">Summit Electrical</span><span class="vendor-badge avoid">Avoid</span></td>
+          <td class="num red">+34%</td>
+          <td class="num red">61%</td>
+          <td class="num red">68%</td>
+          <td><span class="vendor-availability full">Full</span></td>
+          <td class="num">4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Plumbing trade -->
+  <div class="vendor-trade-section demo-block">
+    <div class="vendor-trade-head">
+      <div class="vendor-trade-title">Plumbing</div>
+      <div class="vendor-trade-baseline">Market baseline: <b>$92/fixture</b> · 15 projects <span class="demo-flag">demo</span></div>
+    </div>
+    <table class="vendor-table">
+      <thead>
+        <tr>
+          <th>Vendor</th>
+          <th class="num">Avg Cost vs Baseline</th>
+          <th class="num">Est Accuracy</th>
+          <th class="num">On-Time</th>
+          <th>Availability</th>
+          <th class="num">Projects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="preferred">
+          <td><span class="vendor-name">Apex Plumbing</span><span class="vendor-badge preferred">Preferred</span></td>
+          <td class="num green">−5%</td>
+          <td class="num green">91%</td>
+          <td class="num green">88%</td>
+          <td><span class="vendor-availability open">Open</span></td>
+          <td class="num">9</td>
+        </tr>
+        <tr>
+          <td><span class="vendor-name">Pocono Pipe & Drain</span></td>
+          <td class="num">+8%</td>
+          <td class="num yellow">79%</td>
+          <td class="num yellow">81%</td>
+          <td><span class="vendor-availability open">Open</span></td>
+          <td class="num">6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- General contractor / multi-trade -->
+  <div class="vendor-trade-section demo-block">
+    <div class="vendor-trade-head">
+      <div class="vendor-trade-title">General / Multi-Trade</div>
+      <div class="vendor-trade-baseline">From your Buildertrend POs <span class="demo-flag">demo</span></div>
+    </div>
+    <table class="vendor-table">
+      <thead>
+        <tr>
+          <th>Vendor</th>
+          <th class="num">Avg Cost vs Baseline</th>
+          <th class="num">Est Accuracy</th>
+          <th class="num">On-Time</th>
+          <th>Availability</th>
+          <th class="num">Projects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="vendor-name">Superhost Labs LLC</span><span class="vendor-badge new">Real Vendor</span></td>
+          <td class="num">+2%</td>
+          <td class="num green">87%</td>
+          <td class="num green">85%</td>
+          <td><span class="vendor-availability busy">4 active</span></td>
+          <td class="num">4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 5 — PM VIEW ============ -->
 <div class="lens" id="lens-pm">
 <div class="container">
   <div class="page-head">
@@ -2540,6 +3111,33 @@
         </div>
       </div>
 
+      <!-- Mark's 3 Date Gates (the green/red timeline he tracks) -->
+      <div class="margin-calc-panel demo-block">
+        <div class="mcp-head">
+          <span>Mark's Timeline Gates · The 3 Dates That Predict Happy Clients <span class="demo-flag">demo · projected dates</span></span>
+        </div>
+        <div class="date-gates" style="margin:0;">
+          <div class="date-gate green">
+            <div class="date-gate-label">Handoff → Kickoff</div>
+            <div class="date-gate-val">3 days</div>
+            <div class="date-gate-target">Target: 5 days · On track</div>
+          </div>
+          <div class="date-gate yellow">
+            <div class="date-gate-label">Approved Design → Present</div>
+            <div class="date-gate-val">9 days</div>
+            <div class="date-gate-target">Target: 10 days · Close</div>
+          </div>
+          <div class="date-gate green">
+            <div class="date-gate-label">Total Process</div>
+            <div class="date-gate-val">Day 12</div>
+            <div class="date-gate-target">Goal: 24 days · Pacing well</div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--muted); margin-top:10px; font-style:italic;">
+          Mark: "As long as I can control my time between handoff and kickoff, the design deck approved, and us presenting — if we hit these, clients are happy and cost stops coming up."
+        </div>
+      </div>
+
       <!-- Margin Calculator Live Panel -->
       <div class="margin-calc-panel demo-block">
         <div class="mcp-head">
@@ -2675,6 +3273,152 @@
           <div class="insight-card-text">Portfolio design margin avg is <b>14.8%</b>, target is <b>23%</b>. <b>Make sure SHL Design Fee is scoped tightly</b> — last 18 projects bled design margin.</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 7 — MARGIN GUARDRAILS (NEW) ============ -->
+<div class="lens" id="lens-guardrails">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Real-Time Margin Protection</div>
+    </div>
+    <h1 class="page-title">Stop the bleed before the PO is cut.</h1>
+    <div class="page-subtitle">Mark asked for this directly: "If a PO is about to put us over, I don't want that PO to be able to be cut."</div>
+  </div>
+
+  <!-- The hero number from the transcript -->
+  <div class="guardrail-hero">
+    <div>
+      <div class="ph-eyebrow">The Problem · In Sief's Words</div>
+      <h2 class="ph-title" style="margin-bottom:8px;">$4,000 lost per project × 250 projects = $1M pure EBITDA</h2>
+      <div class="ph-sub" style="color:var(--ink);">Cribs runs ~$3,800 over budget on the average project today, all caught manually after the fact. At scale, that's <b>$1M of pure profit</b> gone. Guardrails catch each overrun <b>before</b> the PO is cut, not after.</div>
+    </div>
+    <div>
+      <div class="guardrail-hero-num">$1M</div>
+      <div class="guardrail-hero-label">At-risk EBITDA<br>at 250 projects/yr</div>
+    </div>
+  </div>
+
+  <!-- KPI strip -->
+  <div class="kpi-strip" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="kpi">
+      <div class="kpi-label">Avg Overrun Today</div>
+      <div class="kpi-value" style="color:var(--red);">$3,800</div>
+      <div class="kpi-delta bad">Per project · from transcript</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">POs Flagged This Week <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--yellow);">11</div>
+      <div class="kpi-delta neutral">Pending Mark review</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Overruns Prevented <span class="demo-flag">demo</span></div>
+      <div class="kpi-value" style="color:var(--green);">$18.4K</div>
+      <div class="kpi-delta good">This month</div>
+    </div>
+    <div class="kpi demo-block">
+      <div class="kpi-label">Margin Accuracy <span class="demo-flag">demo</span></div>
+      <div class="kpi-value">94<span class="unit">%</span></div>
+      <div class="kpi-delta good">Up from 88%</div>
+    </div>
+  </div>
+
+  <div class="grid-head">
+    <h3>Pending PO Approvals · Margin Impact Preview</h3>
+    <div class="grid-head-meta">Each PO checked against project budget before it's cut</div>
+  </div>
+
+  <!-- PO gates -->
+  <div class="po-gate block demo-block">
+    <div class="po-gate-top">
+      <div>
+        <div class="po-gate-title">
+          <span class="dq-source-tag bt">Buildertrend</span>
+          PO #0048 · Summit Electrical · 190 Robyn Ln
+        </div>
+        <div class="po-gate-detail">$8,400 electrical scope · <b>Sub estimate is 34% over market baseline</b> · Would exceed approved construction budget <span class="demo-flag">demo</span></div>
+      </div>
+      <div class="po-impact">
+        <div class="po-impact-bar">
+          <span class="po-margin-before">22.1% →</span>
+          <span class="po-margin-after red">18.4%</span>
+        </div>
+        <div style="font-size:10px; color:var(--red); font-weight:600;">−3.7pp margin</div>
+      </div>
+    </div>
+    <div class="po-gate-actions">
+      <button class="dq-btn">Compare Subs</button>
+      <button class="dq-btn">Override</button>
+      <button class="dq-btn primary" style="background:var(--red); border-color:var(--red);">Block PO</button>
+    </div>
+  </div>
+
+  <div class="po-gate demo-block">
+    <div class="po-gate-top">
+      <div>
+        <div class="po-gate-title">
+          <span class="dq-source-tag bt">Buildertrend</span>
+          PO #0051 · Change Order · 110 Old Ridge Rd
+        </div>
+        <div class="po-gate-detail">$1,500 client change order · Worst-margin project already at 13.6% · Decision: eat the cost for relationship or pass through? <span class="demo-flag">demo</span></div>
+      </div>
+      <div class="po-impact">
+        <div class="po-impact-bar">
+          <span class="po-margin-before">13.6% →</span>
+          <span class="po-margin-after red">12.2%</span>
+        </div>
+        <div style="font-size:10px; color:var(--yellow); font-weight:600;">Repeat-client value?</div>
+      </div>
+    </div>
+    <div class="po-gate-actions">
+      <button class="dq-btn">Client History</button>
+      <button class="dq-btn">Eat Cost</button>
+      <button class="dq-btn primary">Pass Through</button>
+    </div>
+  </div>
+
+  <div class="po-gate ok demo-block">
+    <div class="po-gate-top">
+      <div>
+        <div class="po-gate-title">
+          <span class="dq-source-tag bt">Buildertrend</span>
+          PO #0052 · Mountain Electric Co · 366 Hyland Dr
+        </div>
+        <div class="po-gate-detail">$6,200 electrical · <b>Preferred sub, 8% under baseline</b> · Within budget, margin protected <span class="demo-flag">demo</span></div>
+      </div>
+      <div class="po-impact">
+        <div class="po-impact-bar">
+          <span class="po-margin-before">25.5% →</span>
+          <span class="po-margin-after green">25.5%</span>
+        </div>
+        <div style="font-size:10px; color:var(--green); font-weight:600;">No impact</div>
+      </div>
+    </div>
+    <div class="po-gate-actions">
+      <button class="dq-btn primary" style="background:var(--green); border-color:var(--green);">Auto-Approve</button>
+    </div>
+  </div>
+
+  <!-- Scope completeness checker (Mark's square footage example) -->
+  <div class="grid-head" style="margin-top:24px;">
+    <h3>Scope Completeness Checker</h3>
+    <div class="grid-head-meta">Mark: "I want to be called out if there's no square footage on the turf"</div>
+  </div>
+
+  <div class="po-gate demo-block" style="border-left-color: var(--yellow);">
+    <div class="po-gate-top">
+      <div>
+        <div class="po-gate-title">⚠ Incomplete scope detected · 10053 W Bay St</div>
+        <div class="po-gate-detail">Backyard turf line item has <b>no square footage specified</b> · Sub estimate will be a guess · Send back before bidding <span class="demo-flag">demo</span></div>
+      </div>
+    </div>
+    <div class="po-gate-actions">
+      <button class="dq-btn">View Scope</button>
+      <button class="dq-btn primary">Request SF from PM</button>
     </div>
   </div>
 </div>
