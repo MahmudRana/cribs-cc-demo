@@ -9,32 +9,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --forest: #1B3D6B;
-    --forest-dark: #122A4D;
-    --forest-deep: #0A1B33;
-    --cream: #FFFFFF;
-    --cream-light: #F8FAFC;
-    --cream-soft: #EEF2F7;
-    --gold: #B89968;
-    --gold-dark: #9C8050;
-    --gold-light: #D4BC8E;
-    --ink: #1F2937;
-    --muted: #64748B;
+    --forest: #1F3D2A;
+    --forest-dark: #152A1D;
+    --forest-deep: #0E1F14;
+    --cream: #F5EFE0;
+    --cream-light: #FBF7EC;
+    --cream-soft: #F8F2E4;
+    --gold: #C9A961;
+    --gold-dark: #B8964A;
+    --gold-light: #DCC07F;
+    --ink: #2A2A2A;
+    --muted: #6B6B5A;
     --white: #FFFFFF;
     --red: #B5453C;
-    --red-light: #FCE4E2;
+    --red-light: #E8D3D1;
     --yellow: #C28F3C;
-    --yellow-light: #FCF0D9;
-    --green: #4A7A52;
-    --green-light: #DDEBDF;
-    --tv: #1B3D6B;
-    --tv-light: #DAE3EF;
+    --yellow-light: #F0E2C4;
+    --green: #5A7A4E;
+    --green-light: #DCE5D4;
+    --tv: #4A6FA5;
+    --tv-light: #D5DFEC;
     --direct: #8B6F4A;
-    --direct-light: #EFE6D7;
-    --border: rgba(27, 61, 107, 0.12);
-    --shadow-sm: 0 1px 2px rgba(27, 61, 107, 0.06);
-    --shadow-md: 0 4px 12px rgba(27, 61, 107, 0.08);
-    --shadow-lg: 0 12px 32px rgba(27, 61, 107, 0.12);
+    --direct-light: #E6DAC8;
+    --border: rgba(31, 61, 42, 0.12);
+    --shadow-sm: 0 1px 2px rgba(31, 61, 42, 0.06);
+    --shadow-md: 0 4px 12px rgba(31, 61, 42, 0.08);
+    --shadow-lg: 0 12px 32px rgba(31, 61, 42, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -1569,31 +1569,34 @@
   </div>
 </nav>
 
-<!-- LENS SWITCHER (7 LENSES) -->
+<!-- LENS SWITCHER (8 LENSES) -->
 <div class="lens-switcher">
   <div class="lens-tab active" data-lens="command">
     <span class="lens-tab-num">01</span> Command Center
   </div>
+  <div class="lens-tab" data-lens="chat">
+    <span class="lens-tab-num">02</span> Team Knowledge Chat
+  </div>
   <div class="lens-tab" data-lens="sentiment">
-    <span class="lens-tab-num">02</span> Client Sentiment
+    <span class="lens-tab-num">03</span> Client Sentiment
   </div>
   <div class="lens-tab" data-lens="portfolio">
-    <span class="lens-tab-num">03</span> Portfolio Margin
+    <span class="lens-tab-num">04</span> Portfolio Margin
   </div>
   <div class="lens-tab" data-lens="vendor">
-    <span class="lens-tab-num">04</span> Vendor Intelligence
+    <span class="lens-tab-num">05</span> Vendor Intelligence
   </div>
   <div class="lens-tab" data-lens="pm">
-    <span class="lens-tab-num">05</span> PM Lens
+    <span class="lens-tab-num">06</span> PM Lens
   </div>
   <div class="lens-tab" data-lens="project">
-    <span class="lens-tab-num">06</span> Project Lens
+    <span class="lens-tab-num">07</span> Project Lens
   </div>
   <div class="lens-tab" data-lens="guardrails">
-    <span class="lens-tab-num">07</span> Margin Guardrails
+    <span class="lens-tab-num">08</span> Margin Guardrails
   </div>
   <div class="lens-tab" data-lens="workbench">
-    <span class="lens-tab-num">08</span> PM Workbench
+    <span class="lens-tab-num">09</span> PM Workbench
   </div>
 </div>
 
@@ -1937,42 +1940,35 @@
     <div class="ai-panel">
       <div class="ai-head">
         <div class="ai-dot"></div>
-        <div class="ai-title">Team Knowledge Chat</div>
+        <div class="ai-title">Today's Pulse</div>
       </div>
-      <div class="ai-subtitle">Ask the Command Center · Anything</div>
-
-      <div style="background:var(--forest-dark); border-radius:5px; padding:10px 12px; margin-bottom:14px; border:1px solid rgba(212,188,142,0.2);">
-        <input type="text" placeholder="Ask anything about your projects..."
-          style="width:100%; background:transparent; border:none; color:var(--cream); font-family:inherit; font-size:13px; outline:none;"
-          onkeydown="if(event.key==='Enter') alert('Chat coming soon — would query your data + captured decisions');"/>
-      </div>
-
-      <!-- Example threads -->
-      <div class="ai-item">
-        <div class="ai-item-priority insight">Recent Question</div>
-        <div class="ai-item-text" style="margin-bottom:6px;"><b>Lauren asked:</b> "What markup should I use on Pocono construction over 2,200 sqft?"</div>
-        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
-          <b style="color:var(--white);">From your Knowledge Library:</b> 32-38% range. Last 3 similar projects ran 60%+ over initial estimate — pad 15%.
-        </div>
-        <button class="ai-action" style="margin-top:8px;">View Thread</button>
-      </div>
+      <div class="ai-subtitle">Quick reads · Live state</div>
 
       <div class="ai-item">
-        <div class="ai-item-priority insight">Recent Question</div>
-        <div class="ai-item-text" style="margin-bottom:6px;"><b>Matt asked:</b> "Which electrical sub should I use in Bradenton?"</div>
-        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
-          <b style="color:var(--white);">Mountain Electric Co</b> · −8% vs baseline, 94% on-time. Available now.
+        <div class="ai-item-priority insight">Margin Trend</div>
+        <div class="ai-item-text">Portfolio blended margin: <b>21.04%</b> · Target: 25%</div>
+        <div style="height:6px; background:rgba(255,255,255,0.1); border-radius:3px; margin-top:8px; overflow:hidden;">
+          <div style="width:84%; height:100%; background:var(--gold);"></div>
         </div>
-        <button class="ai-action" style="margin-top:8px;">View Thread</button>
+        <div style="font-size:10.5px; color:var(--gold-light); margin-top:4px;">84% of target</div>
       </div>
 
-      <div class="ai-item">
-        <div class="ai-item-priority">Suggested Questions</div>
-        <div class="ai-item-text" style="font-size:11px;">
-          • What's our avg plumbing cost in Pocono?<br>
-          • Which projects had design margin under 15%?<br>
-          • What did we decide on the 110 Old Ridge change order?
-        </div>
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority insight">Decisions Closed Today <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text" style="font-size:22px; font-family:'Fraunces',serif; color:var(--gold); font-weight:600;">3 of 9</div>
+        <div style="font-size:11px; color:var(--gold-light); margin-top:2px;">~23 minutes spent</div>
+      </div>
+
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority insight">POs Pending Review <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text" style="font-size:22px; font-family:'Fraunces',serif; color:var(--cream); font-weight:600;">11</div>
+        <div style="font-size:11px; color:var(--gold-light); margin-top:2px;">$84K total · 2 over budget</div>
+      </div>
+
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority urgent">Going Dark <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text">5 channels silent 7+ days · Joseph Fogel cluster needs reach-out</div>
+        <button class="ai-action" onclick="switchLens('sentiment')">Open Sentiment</button>
       </div>
 
       <!-- ROI bar -->
@@ -2178,7 +2174,171 @@
 </div>
 </div>
 
-<!-- ============ LENS 2 — CLIENT SENTIMENT RADAR (NEW) ============ -->
+<!-- ============ LENS 2 — TEAM KNOWLEDGE CHAT (NEW) ============ -->
+<div class="lens" id="lens-chat">
+<div class="container">
+  <div class="page-head">
+    <div class="page-eyebrow">
+      <div class="page-eyebrow-line"></div>
+      <div class="page-eyebrow-text">Team Knowledge · Searchable Brain</div>
+    </div>
+    <h1 class="page-title">Ask the Command Center anything.</h1>
+    <div class="page-subtitle">Captured decisions, past patterns, live data — for the whole team. Not a clone. A grounded answer with citations.</div>
+  </div>
+
+  <!-- Big chat input -->
+  <div style="background:var(--forest); border-radius:8px; padding:24px 28px; margin-bottom:22px;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+      <div style="width:28px; height:28px; background:var(--gold); border-radius:6px; display:flex; align-items:center; justify-content:center; color:var(--forest-deep); font-weight:700; font-size:16px;">?</div>
+      <div style="color:var(--gold-light); font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:600;">Ask anything · Grounded in your data + captured rules</div>
+    </div>
+    <input type="text" placeholder="e.g. What markup should I use on Pocono construction over 2,200 sqft?"
+      style="width:100%; background:var(--forest-dark); border:1px solid rgba(201,169,97,0.3); border-radius:6px; padding:14px 16px; color:var(--cream); font-family:inherit; font-size:14px; outline:none;"
+      onkeydown="if(event.key==='Enter') alert('In production: returns a cited answer from Knowledge Library + live data.');"/>
+    <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
+      <span style="font-size:10.5px; color:var(--gold-light); letter-spacing:1px; text-transform:uppercase; font-weight:600; margin-right:6px;">Try:</span>
+      <span class="filter-chip" style="background:var(--forest-dark); color:var(--gold-light); border-color:rgba(201,169,97,0.2);">"What's our avg plumbing cost in Pocono?"</span>
+      <span class="filter-chip" style="background:var(--forest-dark); color:var(--gold-light); border-color:rgba(201,169,97,0.2);">"Which projects had design margin under 15%?"</span>
+      <span class="filter-chip" style="background:var(--forest-dark); color:var(--gold-light); border-color:rgba(201,169,97,0.2);">"Best electrical sub for Bradenton?"</span>
+    </div>
+  </div>
+
+  <!-- Two columns: recent team threads + captured rules -->
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin-bottom:22px;">
+
+    <!-- LEFT: Recent team threads -->
+    <div>
+      <div class="grid-head">
+        <h3>Recent Team Questions</h3>
+        <div class="grid-head-meta">Across PMs · Last 7 days</div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--gold);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Lauren asked</div>
+            <div class="sentiment-prop">"What markup should I use on Pocono construction over 2,200 sqft?"</div>
+          </div>
+          <div class="sentiment-score" style="background:var(--cream-soft); color:var(--gold-dark);">2h ago <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Answer from Knowledge Library:</b> 32-38% markup range. Last 3 similar projects ran 60%+ over initial estimate — pad construction estimate 15%. <br><br>
+          <b>Cited from:</b> Captured rule from May 22 · 1431 Waterfront decision · 3 historical projects.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View Thread</button>
+          <button class="dq-btn">View Source Rule</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--gold);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Matt asked</div>
+            <div class="sentiment-prop">"Which electrical sub should I use in Bradenton?"</div>
+          </div>
+          <div class="sentiment-score" style="background:var(--cream-soft); color:var(--gold-dark);">Yesterday <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Answer from Vendor data:</b> Mountain Electric Co — 8% below baseline, 94% on-time, available now. Top performer in Pocono and Bradenton.<br><br>
+          <b>Cited from:</b> 12 past projects · Vendor Intelligence data.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View Thread</button>
+          <button class="dq-btn" onclick="switchLens('vendor')">Open Vendor Lens</button>
+        </div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--gold);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Nicole asked</div>
+            <div class="sentiment-prop">"What did we decide on the 110 Old Ridge change order?"</div>
+          </div>
+          <div class="sentiment-score" style="background:var(--cream-soft); color:var(--gold-dark);">3d ago <span class="demo-flag">demo</span></div>
+        </div>
+        <div class="sentiment-signal">
+          <b>Answer from captured decisions:</b> Mark approved eating $1,500 cost — repeat-client value over short-term margin. Rule captured for future similar decisions.<br><br>
+          <b>Cited from:</b> Decision logged May 24 by Mark.
+        </div>
+        <div class="sentiment-action-row">
+          <button class="dq-btn">View Thread</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Knowledge library captured rules -->
+    <div>
+      <div class="grid-head">
+        <h3>Knowledge Library · Captured Rules</h3>
+        <div class="grid-head-meta">Patterns and decisions from leadership</div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--green);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Pocono Estimate Padding</div>
+            <div class="sentiment-prop">Captured from past margin patterns</div>
+          </div>
+          <button class="capture-this" style="white-space:nowrap;">Edit Rule</button>
+        </div>
+        <div class="sentiment-signal">
+          <b>Rule:</b> For Pocono properties over 2,200 sqft, pad construction estimate by 15%.<br>
+          <b>Source:</b> 3 historical projects ran 60-175% over initial estimates.<br>
+          <b>Applies to:</b> 4 active projects.
+        </div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--green);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Repeat-Client Cost Coverage</div>
+            <div class="sentiment-prop">Decision logic for change orders</div>
+          </div>
+          <button class="capture-this" style="white-space:nowrap;">Edit Rule</button>
+        </div>
+        <div class="sentiment-signal">
+          <b>Rule:</b> For change orders under $2K on 3+ property clients, eat the cost for relationship value.<br>
+          <b>Source:</b> Repeat-client LTV analysis · 110 Old Ridge decision pattern.<br>
+          <b>Applies to:</b> 12 active multi-property relationships.
+        </div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--green);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Design Margin Floor</div>
+            <div class="sentiment-prop">Strategic margin protection</div>
+          </div>
+          <button class="capture-this" style="white-space:nowrap;">Edit Rule</button>
+        </div>
+        <div class="sentiment-signal">
+          <b>Rule:</b> Flag any project where Design margin drops below 15%. Trigger pricing review with Olivia + SHL.<br>
+          <b>Source:</b> Portfolio analysis · 18 of 20 projects below 23% design target.<br>
+          <b>Applies to:</b> 14 active projects with current data.
+        </div>
+      </div>
+
+      <div class="sentiment-card demo-block" style="border-left-color:var(--gold);">
+        <div class="sentiment-card-top">
+          <div>
+            <div class="sentiment-client">Scope Completeness Rule</div>
+            <div class="sentiment-prop">Pre-submission checklist</div>
+          </div>
+          <button class="capture-this" style="white-space:nowrap;">Edit Rule</button>
+        </div>
+        <div class="sentiment-signal">
+          <b>Rule:</b> Before any PO is cut, scope must include square footage for: turf, flooring, tile work, paint. Block submission if missing.<br>
+          <b>Source:</b> PM workflow gap identified · Sub estimate accuracy.<br>
+          <b>Applies to:</b> All active projects in scope phase.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ LENS 3 — CLIENT SENTIMENT RADAR ============ -->
 <div class="lens" id="lens-sentiment">
 <div class="container">
   <div class="page-head">
@@ -3598,44 +3758,35 @@
   </div>
 
   <div class="two-col">
-    <!-- Knowledge Library + Ask the Command Center -->
+    <!-- Lauren's day pulse + sub guidance -->
     <div class="ai-panel">
       <div class="ai-head">
         <div class="ai-dot"></div>
-        <div class="ai-title">Knowledge Library</div>
+        <div class="ai-title">My Day · Lauren</div>
       </div>
-      <div class="ai-subtitle">Captured Decisions · Ask Anything</div>
+      <div class="ai-subtitle">Wednesday · Quick Reads</div>
 
-      <div style="background:var(--forest-dark); border-radius:5px; padding:10px 12px; margin-bottom:14px; border:1px solid rgba(212,188,142,0.2);">
-        <input type="text" placeholder="Ask anything... e.g. 'What markup for Pocono?'"
-          style="width:100%; background:transparent; border:none; color:var(--cream); font-family:inherit; font-size:12.5px; outline:none;"/>
-      </div>
-
-      <div class="ai-item">
-        <div class="ai-item-priority insight">My Recent Question</div>
-        <div class="ai-item-text" style="margin-bottom:6px;">"What markup should I use on Pocono construction over 2,200 sqft?"</div>
-        <div style="font-size:11px; color:var(--gold-light); background:rgba(212,188,142,0.1); padding:7px 9px; border-radius:3px; line-height:1.45;">
-          <b style="color:var(--white);">From captured rules:</b> 32-38% range. Pad construction 15% on Pocono &gt;2,200 sqft based on 3 past projects.
-        </div>
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority insight">Today's Action Items <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text" style="font-size:22px; font-family:'Fraunces',serif; color:var(--gold); font-weight:600;">4 pending</div>
+        <div style="font-size:11px; color:var(--gold-light); margin-top:2px;">1 urgent · 1 high · 2 medium</div>
       </div>
 
       <div class="ai-item">
-        <div class="ai-item-priority insight">Sub Guidance</div>
-        <div class="ai-item-text" style="margin-bottom:6px;">For your Pocono project, top-3 preferred subs by trade:</div>
-        <div style="font-size:11px; color:var(--gold-light); line-height:1.6;">
-          • Electrical: <b style="color:var(--white);">Mountain Electric Co</b> (preferred)<br>
-          • Plumbing: <b style="color:var(--white);">Apex Plumbing</b> (preferred)<br>
-          • Avoid: <b style="color:#F2A28C;">Summit Electrical</b> (+34% over baseline)
-        </div>
-      </div>
-
-      <div class="ai-item">
-        <div class="ai-item-priority">Quick Asks</div>
+        <div class="ai-item-priority insight">Sub Guidance · Pocono Project</div>
         <div class="ai-item-text" style="font-size:11.5px; line-height:1.6;">
-          • "Show me a recent successful scope for a similar property"<br>
-          • "What did we decide on change orders for repeat clients?"<br>
-          • "Best photographer for Bradenton market?"
+          Top-3 preferred subs by trade:<br>
+          • Electrical: <b>Mountain Electric Co</b><br>
+          • Plumbing: <b>Apex Plumbing</b><br>
+          • <span style="color:#F2A28C;">Avoid: Summit Electrical (+34%)</span>
         </div>
+        <button class="ai-action" onclick="switchLens('vendor')" style="margin-top:8px;">Open Vendor Lens</button>
+      </div>
+
+      <div class="ai-item demo-block">
+        <div class="ai-item-priority insight">Need an Answer? <span class="demo-flag">demo</span></div>
+        <div class="ai-item-text" style="font-size:11.5px;">Ask the Team Knowledge Chat — past decisions and data available across the team.</div>
+        <button class="ai-action" onclick="switchLens('chat')" style="margin-top:8px;">Open Knowledge Chat</button>
       </div>
 
       <div class="roi-bar">
